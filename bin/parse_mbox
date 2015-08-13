@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+require 'json'
+
+require 'email_parser'
+
+def traverse_mbox(filename)
+  raw_message = nil
+
+  File.open(filename, 'rb') do |f|
+    f.each_line do |line|
+      if (line.match(/\AFrom /))
+        yield raw_message if raw_message
+        raw_message = ''
+      else
+        raw_message << line.sub(/^\>From/, 'From')
+      end
+    end
+  end
+  yield raw_message if raw_message
+end
+
+if __FILE__ == $PROGRAM_NAME
+  abort "Usage: #{$PROGRAM_NAME} path/to/mbox" if ARGF.argv.length != 1
+
+  filename = ARGF.argv[0]
+  puts '['
+  traverse_mbox(filename) do |raw_message|
+    parsed = EmailParser.parse(raw_message)
+    puts "#{parsed.to_json},"
+  end
+  puts '{}]'
+end
