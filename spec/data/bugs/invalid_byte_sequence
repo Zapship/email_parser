@@ -1,0 +1,120 @@
+X-GM-THRID: 1433813348421173142
+X-Gmail-Labels: Important
+Delivered-To: x@mail.com
+Received: by 10.60.58.134 with SMTP id r6csp114271oeq;
+        Mon, 19 Aug 2013 08:55:08 -0700 (PDT)
+X-Received: by 10.66.240.67 with SMTP id vy3mr3647942pac.141.1376927707797;
+        Mon, 19 Aug 2013 08:55:07 -0700 (PDT)
+Return-Path: <s@mail.com>
+Received: from domeyko.server.mail.com (mail.server.mail.com. [200.9.100.72])
+        by mx.google.com with ESMTP id yk3si8961679pac.215.1969.12.31.16.00.00;
+        Mon, 19 Aug 2013 08:55:07 -0700 (PDT)
+Received-SPF: softfail (google.com: domain of transitioning ERAMIREZ@amail.com does not designate 200.9.100.72 as permitted sender) client-ip=200.9.100.72;
+Authentication-Results: mx.google.com;
+       spf=softfail (google.com: domain of transitioning ERAMIREZ@amail.com does not designate 200.9.100.72 as permitted sender) smtp.mail=ERAMIREZ@amail.com
+Received: by domeyko.server.mail.com (Postfix)
+	id 65F3B2C039F; Mon, 19 Aug 2013 11:54:57 -0400 (CLT)
+Delivered-To: glhuilli@server.mail.com
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by domeyko.server.mail.com (Postfix) with ESMTP id 17F7D2C0380;
+	Mon, 19 Aug 2013 11:54:56 -0400 (CLT)
+X-Virus-Scanned: amavisd-new at server.mail.com
+Received: from domeyko.server.mail.com ([127.0.0.1])
+	by localhost (domeyko.server.mail.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id QGgTpMt4UrHc; Mon, 19 Aug 2013 11:54:51 -0400 (CLT)
+Received: from mail.amail.com (mail.amail.com [200.111.174.94])
+	(using TLSv1 with cipher AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by domeyko.server.mail.com (Postfix) with ESMTP id 0C8172C03E1;
+	Mon, 19 Aug 2013 11:54:45 -0400 (CLT)
+Received: from FPCE10MBX1.FUNDACION.amail.com
+ ([fe80::a4a5:e3ce:97fb:d2bb]) by FPCE10HUB.FUNDACION.amail.com ([::1])
+ with mapi id 14.02.0347.000; Mon, 19 Aug 2013 11:54:42 -0400
+From: "Edith  Ramos" <ERAMOS@amail.com>
+To: "Edith  Ramos" <ERAMOS@amail.com>
+Subject: =?windows-1258?Q?Investigaci=F3n_sob?=
+ =?windows-1258?Q?re?=
+Thread-Topic: =?windows-1258?Q?Investigaci=F3n_sob?=
+ =?windows-1258?Q?re?=
+Thread-Index: Ac6S16AARCfVi/dZSDObbOfuA9RQmAABA00gAACZ9fAAAHRioAKBjQaAAABsD1AAAyOIYA==
+Date: Mon, 19 Aug 2013 15:54:41 +0000
+Message-ID: <FE1A56BC63BBDA4488C89EDE03ED966E41E36E6B@FP5E10MBX1.FUNDACION.amail.com>
+References: <FE1A06AC63BBDA4488C8FEDE03ED966E41E2CBE6@FPAE10MBX2.FUNDACION.amail.com>
+  <FE1A06BC63BBD64488C8FEDE03ED966E41E2CD73@FPCE10MBX2.FUNDACION.amail.com>
+ <FE1A06BC63BBD644AAC8FEDE03ED966E41E2CDCF@FPCE10MBX2.FUNDACION.amail.com>
+ <FE1A06BC63AAD64488C8FEDE03ED966E41E36CBB@FPCE10MBX1.FUNDACION.amail.com>
+ <FE1A0AAC63BBD64488C8FEDE03ED966E41E36D32@FPCE10MBX1.FUNDACION.amail.com>
+In-Reply-To: <FE1A06BC63BBD64488C8FEDEAAED96AA41E36D32@FPCE10MBX1.FUNDACION.amail.com>
+Accept-Language: es-CL, en-US
+Content-Language: es-ES
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-originating-ip: [192.168.20.180]
+Content-Type: multipart/mixed;
+	boundary="_007_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_"
+MIME-Version: 1.0
+
+--_007_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: multipart/related;
+	boundary="_006_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_";
+	type="multipart/alternative"
+
+--_006_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: multipart/alternative;
+	boundary="_000_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_"
+
+--_000_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: text/plain; charset="windows-1258"
+Content-Transfer-Encoding: quoted-printable
+
+[cid:image001.jpg@01CE91F9.7DBA2B00]
+
+--_000_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: text/html; charset="windows-1258"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
+s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
+40">
+</html>
+
+--_000_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_--
+
+--_006_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: image/jpeg; name="image001.jpg"
+Content-Description: image001.jpg
+Content-Disposition: inline; filename="image001.jpg"; size=60497;
+	creation-date="Mon, 05 Aug 2013 20:35:54 GMT";
+	modification-date="Mon, 05 Aug 2013 20:35:54 GMT"
+Content-ID: <image001.jpg@01CE91F9.7DBA2B00>
+Content-Transfer-Encoding: base64
+
+
+
+--_006_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_--
+
+--_007_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: application/pdf;
+	name="=?windows-1258?Q?INVITACIO=ECN.pdf?="
+Content-Description: =?windows-1258?Q?INVITACIO=ECN_VII_Congreso.pdf?=
+Content-Disposition: attachment;
+	filename="=?windows-1258?Q?INVITACIO=ECN.pdf?="; size=320333;
+	creation-date="Mon, 05 Aug 2013 20:34:35 GMT";
+	modification-date="Mon, 05 Aug 2013 20:22:56 GMT"
+Content-Transfer-Encoding: base64
+
+
+--_007_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_
+Content-Type: application/docx;
+	name="=?windows-1258?Q?Inscripci=F3n.docx?="
+Content-Description: =?windows-1258?Q?Formulario_de_Inscripci=F3n.docx?=
+Content-Disposition: attachment;
+	filename="=?windows-1258?Q?Inscripci=F3n.docx?="; size=173738;
+	creation-date="Tue, 06 Aug 2013 15:26:57 GMT";
+	modification-date="Mon, 05 Aug 2013 20:52:07 GMT"
+Content-Transfer-Encoding: base64
+
+
+--_007_FE1A06BC63BBD64488C8FEDE03ED966E41E36E6BFPCE10MBX1FUNDA_--

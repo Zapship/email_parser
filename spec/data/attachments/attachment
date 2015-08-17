@@ -1,0 +1,47 @@
+Date: Fri, 7 Aug 2015 17:33:56 -0300
+Subject: Attachment subject
+From: Jorge Pedreros <jorge.pedreros@gmail.com>
+To: Adel Carrillo <adelcarrillo@fue.com>
+Content-Type: multipart/mixed; boundary=f46d042d03d417ce09051cbe8e1b
+
+--f46d042d03d417ce09051cbe8e1b
+Content-Type: multipart/alternative; boundary=f46d042d03d417ce05051cbe8e1a
+
+--f46d042d03d417ce05051cbe8e1a
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Text
+--f46d042d03d417ce05051cbe8e1a
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div>HTML</div>
+--f46d042d03d417ce05051cbe8e1a--
+--f46d042d03d417ce09051cbe8e1b
+Content-Type: image/jpeg; name="image001.jpg"
+Content-Disposition: inline; filename="image001.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <image001.jpg@01D0D134.942CE860>
+X-Attachment-Id: 13bcba4453c166c6_0.1
+
+/9j/4AAQSkZJ
+
+--f46d042d03d417ce09051cbe8e1b
+Content-Type: image/jpeg; name="image002.jpg"
+Content-Disposition: attachment; filename="image002.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <image002.jpg@01D0D134.942CE860>
+X-Attachment-Id: 13bcba4453c166c6_0.2
+
+/9j/4AAQSkZJ
+
+--f46d042d03d417ce09051cbe8e1b
+Content-Type: image/jpeg; name="image003.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <image003.jpg@01D0D134.942CE860>
+X-Attachment-Id: 13bcba4453c166c6_0.3
+
+/9j/4AAQSkZJ
+
+--f46d042d03d417ce09051cbe8e1b--
