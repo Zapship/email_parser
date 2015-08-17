@@ -1,5 +1,6 @@
 require 'email_parser/version'
 require 'email_parser/forward_patterns'
+require 'email_parser/emoji_patterns'
 require 'email_parser/reply_patterns'
 require 'email_parser/sent_patterns'
 
@@ -23,6 +24,7 @@ module EmailParser
 
       data[:is_forwarded] = forwarded?(data[:subject], data[:body_plain])
       data[:stripped_text] = strip_text(data[:body_plain])
+      data[:subject_has_emojis] = emojis?(data[:subject])
 
       data
     end
@@ -278,6 +280,10 @@ module EmailParser
       end
 
       new_lines.join("\n").strip.gsub(/\n{2,}/, "\n\n")
+    end
+
+    def self.emojis?(text)
+      !EmojiPatterns::EMOJI_RE.match(text).nil?
     end
   end
 end
