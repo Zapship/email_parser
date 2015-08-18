@@ -503,5 +503,74 @@ module EmailParser
     REPLY_WROTE_RE = Regexp.new(
       '^(' + REPLY_WROTE_PATTERNS.uniq.join('|') + ')$',
       Regexp::IGNORECASE)
+
+    # List of reply subjects taken from
+    # https://en.wikipedia.org/wiki/List_of_email_subject_abbreviations#Abbreviations_in_other_languages
+    REPLY_SUBJECTS = [
+      # English
+      'RE',
+      # Chinese (Traditional)
+      '關於',
+      # Chinese (Simplified)
+      '关于',
+      # Danish
+      'SV',
+      'Svar',
+      # Dutch
+      'Antw',
+      'Antwoord',
+      # Finnish
+      'VS',
+      'Vastaus',
+      # French
+      'RE',
+      'Réponse',
+      # German
+      'AW',
+      'Antwort',
+      # Greek
+      'ΑΠ',
+      'Απάντηση',
+      'ΣΧΕΤ',
+      'Σχετικό',
+      # Hebrew
+      'תגובה',
+      'הועבר',
+      # Hungarian
+      'Vá',
+      'Válasz',
+      # Italian
+      'R',
+      'RIF',
+      'Riferimento',
+      # Icelandic
+      'SV',
+      'Svara',
+      # Indonesian
+      'BLS',
+      'Balas',
+      # Norwegian
+      'SV',
+      'Svar',
+      # Swedish
+      'SV',
+      'Svar',
+      # Spanish
+      'RE',
+      'Responder',
+      # Portuguese
+      'RE',
+      'Resposta',
+      # Polish
+      'Odp',
+      'Odpowiedź',
+      # Turkish
+      'YNT',
+      'Yanıt',
+    ]
+
+    REPLY_SUBJECT_RE = Regexp.new(
+      '^(' + REPLY_SUBJECTS.uniq.join('|') + '): ',
+      Regexp::IGNORECASE)
   end
 end

@@ -257,6 +257,15 @@ describe EmailParser do
     end
   end
 
+  describe 'stripped subject' do
+    it 'correctly removes email patterns from the subject' do
+      message = get_message('stripped_subject/subject')
+      subject = EmailParser.parse(message)[:stripped_subject]
+      expect(subject).to eq(
+        'Dieses Email ist weitergeleitet')
+    end
+  end
+
   describe 'bugs' do
     it 'correctly decodes emails with invalid byte sequences' do
       message = get_message('bugs/invalid_byte_sequence')
