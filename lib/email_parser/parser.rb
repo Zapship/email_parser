@@ -24,6 +24,7 @@ module EmailParser
 
       data[:is_forwarded] = forwarded?(data[:subject], data[:body_plain])
       data[:stripped_text] = strip_text(data[:body_plain])
+      data[:stripped_subject] = strip_subject(data[:subject])
       data[:subject_has_emojis] = emojis?(data[:subject])
 
       data
@@ -280,6 +281,25 @@ module EmailParser
       end
 
       new_lines.join("\n").strip.gsub(/\n{2,}/, "\n\n")
+    end
+
+    STRIP_SUBJECT_RE = Regexp.union(
+      ReplyPatterns::REPLY_SUBJECT_RE,
+      ForwardPatterns::FORWARD_SUBJECT_RE,
+      / \(fwd\)$/
+    )
+
+    def self.strip_subject(subject)
+      return nil if subject.nil?
+
+      stripped_subject = subject
+      loop do
+        new_stripped_subject = stripped_subject.sub(STRIP_SUBJECT_RE, '')
+        break if new_stripped_subject == stripped_subject
+        stripped_subject = new_stripped_subject
+      end
+
+      stripped_subject
     end
 
     def self.emojis?(text)

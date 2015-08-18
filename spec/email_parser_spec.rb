@@ -257,6 +257,15 @@ describe EmailParser do
     end
   end
 
+  describe 'stripped subject' do
+    it 'correctly removes email patterns from the subject' do
+      message = get_message('stripped_subject/subject')
+      subject = EmailParser.parse(message)[:stripped_subject]
+      expect(subject).to eq(
+        'Dieses Email ist weitergeleitet')
+    end
+  end
+
   describe 'subject_has_emojis' do
     it 'returns false when no emojis' do
       message = get_message('subject_has_emojis/no_emojis')
