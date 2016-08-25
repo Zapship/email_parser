@@ -3,8 +3,10 @@ require 'email_parser/forward_patterns'
 require 'email_parser/emoji_patterns'
 require 'email_parser/reply_patterns'
 require 'email_parser/sent_patterns'
+require 'email_parser/signature_patterns'
 
 require 'mail'
+require 'json'
 
 module EmailParser
   module Parser
@@ -19,24 +21,25 @@ module EmailParser
         headers: extract_headers(message),
         body_plain: extract_body_plain(message),
         attachments: extract_attachments(message),
-        is_subscription: subscription?(message),
+        is_subscription: subscription?(message)
       }
 
       data[:is_forwarded] = forwarded?(data[:subject], data[:body_plain])
       data[:stripped_text] = strip_text(data[:body_plain])
       data[:stripped_subject] = strip_subject(data[:subject])
       data[:subject_has_emojis] = emojis?(data[:subject])
+      data[:email_signature] = strip_signature(data[:body_plain])
 
       data
     end
 
-    private
 
     def self.to_valid_utf8(value)
       return nil if value.nil?
 
       value.encode('utf-8', invalid: :replace)
     end
+    private_class_method(:to_valid_utf8)
 
     def self.address_to_dict(address)
       {
@@ -44,28 +47,29 @@ module EmailParser
         name: to_valid_utf8(address.display_name)
       }
     end
+    private_class_method(:address_to_dict)
 
     def self.extract_subject(message)
       to_valid_utf8(message.subject)
     end
+    private_class_method(:extract_subject)
 
     def self.extract_sender(message)
       sender_header = message.header['Sender']
 
-      if sender_header.nil?
-        return extract_from(message)
-      else
-        begin
-          sender_address = sender_header.address
-        rescue NoMethodError
-          return { name: nil, email: nil }
-        end
+      return extract_from(message) if sender_header.nil?
 
-        return extract_from(message) if sender_address.nil?
+      begin
+        sender_address = sender_header.address
+      rescue NoMethodError
+        return { name: nil, email: nil }
       end
+
+      return extract_from(message) if sender_address.nil?
 
       address_to_dict(sender_address)
     end
+    private_class_method(:extract_sender)
 
     def self.extract_from(message)
       from_header = message.header['From']
@@ -79,6 +83,7 @@ module EmailParser
 
       address_to_dict(address)
     end
+    private_class_method(:extract_from)
 
     def self.extract_addresses(header, type)
       return [] if header.nil?
@@ -98,6 +103,7 @@ module EmailParser
         address_dict
       end
     end
+    private_class_method(:extract_addresses)
 
     def self.extract_recipients(message)
       # TODO(skreft): add type of header to each entry?
@@ -113,6 +119,7 @@ module EmailParser
 
       recipients
     end
+    private_class_method(:extract_recipients)
 
     def self.extract_headers(message)
       headers = Hash.new { |h, k| h[k] = [] }
@@ -123,6 +130,7 @@ module EmailParser
 
       headers
     end
+    private_class_method(:extract_headers)
 
     def self.normalize_encoding_name(encoding_name)
       encoding_name.downcase.gsub(/[^a-z0-9]+/, '')
@@ -131,12 +139,14 @@ module EmailParser
     ENCODINGS = Encoding.name_list.map do |encoding_name|
       [normalize_encoding_name(encoding_name), Encoding.find(encoding_name)]
     end.to_h
+    private_class_method(:normalize_encoding_name)
 
     def self.get_encoding(encoding_name)
       normalized_encoding_name = normalize_encoding_name(encoding_name)
 
       ENCODINGS.fetch(normalized_encoding_name, ENCODINGS['usascii'])
     end
+    private_class_method(:get_encoding)
 
     def self.extract_body_plain(message)
       if message.multipart?
@@ -153,25 +163,24 @@ module EmailParser
       part.decode_body.force_encoding(encoding).encode('utf-8',
                                                        invalid: :replace)
     end
+    private_class_method(:extract_body_plain)
 
     def self.extract_filename(message)
       # This is a fixed version of Mail::Message.find_attachment
       content_type_name = message.header[:content_type].filename rescue nil
       content_disp_name = message.header[:content_disposition].filename rescue nil
       content_loc_name  = message.header[:content_location].location rescue nil
-      case
-      when content_type_name
-        filename = content_type_name
-      when content_disp_name
-        filename = content_disp_name
-      when content_loc_name
-        filename = content_loc_name
-      else
-        filename = nil
-      end
+
+      filename = if content_type_name
+                   content_type_name
+                 elsif content_disp_name
+                   content_disp_name
+                 elsif content_loc_name
+                   content_loc_name
+                 end
       filename = Mail::Encodings.decode_encode(filename, :decode) if filename rescue filename
-      filename
     end
+    private_class_method(:extract_filename)
 
     def self.extract_attachments(message)
       attachments = []
@@ -209,26 +218,31 @@ module EmailParser
 
       attachments
     end
+    private_class_method(:extract_attachments)
 
     def self.subscription?(message)
       message.header.fields.any? do |field|
         field.name.downcase.start_with? 'list-'
       end
     end
+    private_class_method(:subscription?)
 
     def self.forwarded?(subject, body_plain)
       forwarded_subject?(subject) || forwarded_body?(body_plain)
     end
+    private_class_method(:forwarded?)
 
     def self.forwarded_subject?(subject)
       return false if subject.nil?
       !ForwardPatterns::FORWARD_SUBJECT_RE.match(subject).nil?
     end
+    private_class_method(:forwarded_subject?)
 
     def self.forwarded_body?(body)
       return false if body.nil?
       !ForwardPatterns::FORWARD_BODY_RE.match(body).nil?
     end
+    private_class_method(:forwarded_body?)
 
     # Do not process lines longer than the value below, as that could trigger a
     # DOS, due to the RE engine
@@ -282,6 +296,26 @@ module EmailParser
 
       new_lines.join("\n").strip.gsub(/\n{2,}/, "\n\n")
     end
+    private_class_method(:strip_text)
+
+    def self.strip_signature(body)
+      return nil if body.nil?
+
+      # TODO(RA, 2016-08-24): Rewrite using feature scores and ML
+      # Obtain the text following a closing
+      last_match = body.scan(SignaturePatterns::CLOSING_RE).last
+      return nil if last_match.nil?
+      signature = $'
+
+      # Strip phone signature
+      if SignaturePatterns::PHONE_CLOSING_RE =~ signature
+        signature[SignaturePatterns::PHONE_CLOSING_RE] = ''
+      end
+
+      # Strip whitespace, dots and commas
+      signature.gsub(/\A[\s\.,]+|[\s\.,]+\z/m, '')
+    end
+    private_class_method(:strip_signature)
 
     STRIP_SUBJECT_RE = Regexp.union(
       ReplyPatterns::REPLY_SUBJECT_RE,
@@ -301,9 +335,11 @@ module EmailParser
 
       stripped_subject
     end
+    private_class_method(:strip_subject)
 
     def self.emojis?(text)
       !EmojiPatterns::EMOJI_RE.match(text).nil?
     end
+    private_class_method(:emojis?)
   end
 end

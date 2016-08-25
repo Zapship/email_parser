@@ -286,6 +286,77 @@ describe EmailParser do
     end
   end
 
+  describe 'email signature' do
+    it 'correctly parses a signature after double dash' do
+      message = get_message('email_signature/simple_signature')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq('John')
+    end
+    it 'correctly parses a signature after a closing' do
+      message = get_message('email_signature/long_name_signature')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq('Aloysius Paulus van Gaal')
+    end
+    it 'correctly parses a signature after a closing in the same line' do
+      message = get_message('email_signature/closing_no_newline_signature')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq('John')
+    end
+    it 'correctly parses a signature w/closing when before a phone signature' do
+      message = get_message('email_signature/long_signature_with_phone_sig')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq("John Doe\n"\
+                              "Sudo Technologies Inc\n"\
+                              "Software Development\n"\
+                              "530 Oak Grove Ave\n"\
+                              "Suite 207\n"\
+                              "Menlo Park, CA 94025\n"\
+                              "Phone: 111-222-7890\n"\
+                              "john@domain.com\n"\
+                              'www.domain.com')
+    end
+    # TODO(RA, 2016-08-24): Use ML tools to detect signature lines
+    xit 'correctly parses a long signature without closing' do
+      message = get_message('email_signature/long_signature_no_closing')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq("John Doe\n"\
+                              "Sudo Technologies Inc\n"\
+                              "Software Development\n"\
+                              "530 Oak Grove Ave\n"\
+                              "Suite 207\n"\
+                              "Menlo Park, CA 94025\n"\
+                              "Phone: 111-222-7890\n"\
+                              "john@domain.com\n"\
+                              'www.domain.com')
+    end
+    xit 'correctly parses a long signature with footer without closing' do
+      message = get_message('email_signature/long_signature_with_footer_no_closing')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq("John Doe\n"\
+                              "Sudo Technologies Inc\n"\
+                              "Software Development\n"\
+                              "530 Oak Grove Ave\n"\
+                              "Suite 207\n"\
+                              "Menlo Park, CA 94025\n"\
+                              "Phone: 111-222-7890\n"\
+                              "john@domain.com\n"\
+                              'www.domain.com')
+    end
+    xit 'correctly parses a pipe separated signature without closing' do
+      message = get_message('email_signature/pipe_signature_no_closing')
+      signature = EmailParser.parse(message)[:email_signature]
+      expect(signature).to eq("John Doe\n"\
+                              "Sudo Technologies Inc\n"\
+                              "Software Development\n"\
+                              "530 Oak Grove Ave\n"\
+                              "Suite 207\n"\
+                              "Menlo Park, CA 94025\n"\
+                              "Phone: 111-222-7890\n"\
+                              "john@domain.com\n"\
+                              'www.domain.com')
+    end
+  end
+
   describe 'bugs' do
     it 'correctly decodes emails with invalid byte sequences' do
       message = get_message('bugs/invalid_byte_sequence')
