@@ -1,0 +1,54 @@
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-2.6
+      - test-2.5
+      - test-2.4
+      - test-2.3
+
+jobs:
+  test-2.6: &test-template
+    docker:
+      - image: circleci/ruby:2.3
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - cache-v1-{{ checksum "email_parser.gemspec" }}
+            - cache-v1-
+
+      - run:
+          name: Install dependencies
+          command: bundle check || bundle install
+
+      - save_cache:
+          key: cache-v1-{{ checksum "email_parser.gemspec" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run tests
+          command: bundle exec rspec
+
+  test-2.5:
+    <<: *test-template
+    docker:
+      - image: circleci/ruby:2.5
+
+  test-2.4:
+    <<: *test-template
+    docker:
+      - image: circleci/ruby:2.4
+  
+  test-2.3:
+    <<: *test-template
+    docker:
+      - image: circleci/ruby:2.3
