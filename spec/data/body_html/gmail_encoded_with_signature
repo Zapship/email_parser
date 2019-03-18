@@ -1,0 +1,152 @@
+Delivered-To: amit@sudoai.com
+Received: by 2002:adf:fc4f:0:0:0:0:0 with SMTP id e15csp11678430wrs;
+        Tue, 26 Feb 2019 14:59:23 -0800 (PST)
+X-Received: by 2002:a02:781:: with SMTP id f123mr14348663jaf.133.1551221963397;
+        Tue, 26 Feb 2019 14:59:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1551221963; cv=none;
+        d=google.com; s=arc-20160816;
+        b=qNsVkuD5p1M1ccs4puWQ31msbyn+QxBgbuPX/afv2UjdgDL5nNvRaR77fSszwR7KX0
+         utBXqgxnPDt1nUR7JjxDIVskLFmkH7JJqyIutLQkfWKb0VbWWcZjAUXA5G6zQvQSeC9Z
+         8+eWjaCLUqbXE3/wu3zB6cz0QPLg2Co0ZWpcemPqUH0ocuvMlzLyQt/YFP956UuBGys7
+         6TDTOgjSOKWjTQlA4AD6yRstvtn4obXmTaYOk5coIjbsN8Vhypv2rNuzaonu5OkRpwoH
+         HHjBTX1HPzetXHvNsfBcsLD3yVf2TkvrgCLb3tV2JsGGyrvAF0hWXyzUZ9LlTfaIgEcS
+         qMYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4xHcVISANLouBV3bzawoyo03LAsUUnFUEW2lyaGEoHA=;
+        b=lElwRYs58XO6jW1Grb9HjpgGGAFX0otOrQdn2owHjPWMZBJlW3EswbrExWG8P5HpE7
+         fGYDQh6eT42TreYeJ/PHV2n3OhZl5cQDX8AeLWrbqpqu9YCOQCN7DoPJPjCCURgIS+Tu
+         LA1vF9q5inP/LAodHZ00vXq6m1zlUJH6LqEJTt2V0IMavcrPy+nhBPROtlm61QHbQdx4
+         n1JtgtNZVl8kzWU9KwjiYzgG+qwBjFXlmy4g0h71D/cVWuH06VHL5/sUfuJP3LrjH+dm
+         2TzPMD5ORe+D0QXNybrlOH7cK7hhMc5KGpm9OlN6PxRbN36sxaVCZoyUHpmalMgUvnvx
+         MO+w==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@ensembleenergy-ai.20150623.gappssmtp.com header.s=20150623 header.b=LznPla5b;
+       spf=pass (google.com: domain of sgupta@ensembleenergy.ai designates 209.85.220.41 as permitted sender) smtp.mailfrom=sgupta@ensembleenergy.ai
+Return-Path: <sgupta@ensembleenergy.ai>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id 187sor704122itm.24.2019.02.26.14.59.23
+        for <amit@sudoai.com>
+        (Google Transport Security);
+        Tue, 26 Feb 2019 14:59:23 -0800 (PST)
+Received-SPF: pass (google.com: domain of sgupta@ensembleenergy.ai designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ensembleenergy-ai.20150623.gappssmtp.com header.s=20150623 header.b=LznPla5b;
+       spf=pass (google.com: domain of sgupta@ensembleenergy.ai designates 209.85.220.41 as permitted sender) smtp.mailfrom=sgupta@ensembleenergy.ai
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ensembleenergy-ai.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=4xHcVISANLouBV3bzawoyo03LAsUUnFUEW2lyaGEoHA=;
+        b=LznPla5bKwMREwXosQlfNgineDj5NWczakilX+al22nVF20qsxqj0vy4cBKbqJyyfA
+         Wl37qE5eAjAVYr0bdvhuP/tsnk2zJncH8p57qVw9vY6wRQcmr5bRw+xbU7tulwpd3a79
+         3kzeSZG+xgHUlLfXSpDXjFSZBe9DFhLw13zCqDZYLuSdQrcUeq+dUF4J/9E0qjMPWDBK
+         fouwZvVfEkHPn+rsYSQPv7DwMlGq/T9PzLN8i1pTggr3fR4+p4+vrjTMl/x1GXzzKhuV
+         LP2/WAnQrlEOzZnAb0m++hd7c2U1qKQL08+BZoZ8arUnUVRhKo7BC04E7MGKYxBn88hl
+         Zbgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=4xHcVISANLouBV3bzawoyo03LAsUUnFUEW2lyaGEoHA=;
+        b=ggCmmC5VRzyMrD4lIDiIJa39T/mz4FqJrJ/XYVQ8toDMlFnls03wjycKZgksZNla1O
+         hB8ANyN2ALZCUCW4Cy3XskeuXPiYc5oRNt3l8aMHZGsyOSBsD6fQCpEfug+QIFnciw2X
+         gHvzjgFWj/aERCyZ0B07SISiAtSb2si9FcKgWFv7m83jt59LNgCzGx6htzs/EwIzOL5H
+         lD7InLHGySSi1Am+foT5e8jQLC7J7svyiB+6TME6zVjqsq2K1yfCAZTtjB1WwjuEQfOG
+         PFbKe2tji+4DoxYMyK6Vbdvycr0bn97+aWm5UjbnCd3m3Zi28LKisg6A3s8Wd1LVPAU5
+         DYuA==
+X-Gm-Message-State: APjAAAUVShq1AtlY8+47Y7pUMtFTNjI2Zj12jecVQ1VgzOXniyTNF9Nd +fZYHlFglUvFjsLbjKqrJPo4c3uh459rD14vuumiig==
+X-Google-Smtp-Source: AHgI3IZ2DnAFU74tYDrDfuNg61rgdnhNIOyagH+1yuF9ZNq2eDiXMG/SnRlchQSkFb0iSyDXgteGwXnfD41phDKWgzA=
+X-Received: by 2002:a24:4846:: with SMTP id p67mr3991036ita.70.1551221962815; Tue, 26 Feb 2019 14:59:22 -0800 (PST)
+MIME-Version: 1.0
+References: <CAGxQQ-911sY6sj-516yDWH0Hj05XG1FrrsDcyn6Vq8MWqku4YA@mail.gmail.com>
+In-Reply-To: <CAGxQQ-911sY6sj-516yDWH0Hj05XG1FrrsDcyn6Vq8MWqku4YA@mail.gmail.com>
+From: Sandeep Gupta <sgupta@ensembleenergy.ai>
+Date: Tue, 26 Feb 2019 14:59:11 -0800
+Message-ID: <CAJ_ZnSsnqKvMdq5juC5vVdtbqeTi=kkYdjWNJJrb8+Rm+xbgJg@mail.gmail.com>
+Subject: Re: Intro to Charles Hudson
+To: bhupesh bansal <bbansal.usc@gmail.com>
+Cc: Amit Koren <amit@sudoai.com>
+Content-Type: multipart/alternative; boundary="0000000000000fcc170582d402b0"
+
+--0000000000000fcc170582d402b0
+Content-Type: text/plain; charset="UTF-8"
+
+Bhupesh -- Thanks for the intro to Amit.
+
+Amit -- Thanks for sending the link to get connected to Charles. I really
+appreciate it.
+
+Best,
+Sandeep
+
+
+*Sandeep Gupta**Chief Executive Officer*
+
+c: 805-701-8506
+e: sgupta@ensembleenergy.ai
+w: www.ensembleenergy.ai
+
+<http://www.ensembleenergy.ai>
+
+
+On Tue, Feb 26, 2019 at 1:23 PM bhupesh bansal <bbansal.usc@gmail.com>
+wrote:
+
+> Hey Amit,
+>
+> Please meet my friend Sandeep Gupta(cc'ed here) he is founder of ensemble
+> energy a Saas predictive maintenance analytics product for energy industry.
+>
+> He is looking to meet Charles Hudson will appreciate if you can make the
+> intro.
+>
+> Hey Sandeep,
+>
+> Amit is my ex-cofounder and the best product guy I the world :)
+>
+> Best
+> Bhupesh
+>
+
+--0000000000000fcc170582d402b0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Bhupesh -- Thanks for the intro to Amit.=C2=A0<div><br></d=
+iv><div>Amit -- Thanks for sending the link to get connected to Charles. I =
+really appreciate it.</div><div><br></div><div>Best,<br>Sandeep<br clear=3D=
+"all"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gma=
+il_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><p style=3D"font-size:=
+small"><b><span style=3D"color:rgb(11,83,148)"><font face=3D"arial, helveti=
+ca, sans-serif">Sandeep Gupta<br></font></span></b><i style=3D"font-size:12=
+.8px"><span style=3D"color:rgb(11,83,148)"><font face=3D"arial, helvetica, =
+sans-serif">Chief Executive Officer</font></span></i></p><p style=3D"font-s=
+ize:small"><span style=3D"color:rgb(11,83,148)"><font face=3D"arial, helvet=
+ica, sans-serif">c: 805-701-8506<br></font></span><span style=3D"font-famil=
+y:arial,helvetica,sans-serif;font-size:12.8px;color:rgb(11,83,148)">e:=C2=
+=A0</span><a href=3D"mailto:sgupta@ensembleenergy.ai" style=3D"color:rgb(17=
+,85,204);font-family:arial,helvetica,sans-serif;font-size:12.8px" target=3D=
+"_blank">sgupta@ensembleenergy.ai</a><br>w: <a href=3D"http://www.ensemblee=
+nergy.ai" target=3D"_blank">www.ensembleenergy.ai</a></p><p style=3D"font-s=
+ize:small"><a href=3D"http://www.ensembleenergy.ai" target=3D"_blank"><img =
+src=3D"http://ensembleenergy.ai/wp-content/uploads/2016/01/ENSEMBLE-E-color=
+-transp.-bg-01.jpg" width=3D"96" height=3D"72"></a></p></div></div></div></=
+div></div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">On Tue, Feb 26, 2019 at 1:23 PM bhupesh bansal &lt;<a h=
+ref=3D"mailto:bbansal.usc@gmail.com">bbansal.usc@gmail.com</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"auto"=
+>Hey Amit,<div dir=3D"auto"><br></div><div dir=3D"auto">Please meet my frie=
+nd Sandeep Gupta(cc&#39;ed here) he is founder of ensemble energy a Saas pr=
+edictive maintenance analytics product for energy industry.=C2=A0</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">He is looking to meet Charles Hud=
+son will appreciate if you can make the intro.</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">Hey Sandeep,</div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto">Amit is my ex-cofounder and the best product guy I the world :)=
+=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">Best</div><div di=
+r=3D"auto">Bhupesh=C2=A0</div></div>
+</blockquote></div>
+
+--0000000000000fcc170582d402b0--
