@@ -17,10 +17,12 @@ module EmailParser
       # http://www.unicode.org/Public/emoji/1.0//emoji-data.txt
       emojis = []
       filename = File.expand_path(
-        File.join('..', '..', '..', 'data', 'emoji-data.txt'), __FILE__)
+        File.join('..', '..', 'data', 'emoji-data.txt'), __dir__
+      )
       CSV.foreach(
-          filename, col_sep: ";",
-          headers: [:code, :default_style, :level, :status, :sources]) do |row|
+        filename, col_sep: ";",
+                  headers: [:code, :default_style, :level, :status, :sources]
+      ) do |row|
         next if row[:default_style] != 'emoji'
         emojis << codepoints_to_string(row[:code])
       end

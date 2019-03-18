@@ -7,10 +7,11 @@ module EmailParser
       'Enviado desde .*',
       'Diese Nachricht wurde von meinem .* gesendet.',
       'Von meinem .* gesendet',
-    ]
+    ].freeze
 
     SENT_FROM_RE = Regexp.new(
       '^(' + SENT_FROM_PATTERNS.uniq.join('|') + ')$',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
   end
 end

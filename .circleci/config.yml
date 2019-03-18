@@ -37,6 +37,10 @@ jobs:
       - run:
           name: Run tests
           command: bundle exec rspec
+      
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
 
   test-2.5:
     <<: *test-template
