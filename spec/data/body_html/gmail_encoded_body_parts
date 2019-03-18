@@ -1,0 +1,222 @@
+Delivered-To: amit@intrologic.com
+Received: by 2002:adf:fc4f:0:0:0:0:0 with SMTP id e15csp12883109wrs;
+        Wed, 27 Feb 2019 15:03:05 -0800 (PST)
+X-Received: by 2002:a37:3641:: with SMTP id d62mr4181188qka.14.1551308585183;
+        Wed, 27 Feb 2019 15:03:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1551308585; cv=none;
+        d=google.com; s=arc-20160816;
+        b=XpEhRogmLtE/k1OFTOkZI4PsBmnN9vPMYwO6WVtu82V9TykYqxLEHlIJHZLBtXU69a
+         1qPbmROL9y6PF6VOTala19Q3JFnmpjMw3e4qjuluIleIbUKVAe+YdtrknGe4q+2ghfMK
+         dAhXcpQz/BJyTqy0wkJb3gf0ToiwfRRQYiPZBQYO0Dv2ncuylHzGode3W5Fzg9doDrnJ
+         Fyy6RBi28u1XtROGbzqjiYv6y8tywQwr9IcRkbPuBO+K1N+nvYlMn5GNdKCPedOHAluu
+         BSN/LPRNmOLQBwCg6cc7UW7UUfnE6n3+MACOxcdvdNLzgHLcUBt99hxIjEnosM/CccD+
+         quqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=H5kF04+5/2hgeZtCsZ5bRKKQaAMO5DaDKMpDYtaIZIM=;
+        b=uaBvjvXnzZby9WvZyK6wQPECO2qnwaE803/sA2AwKqNvOkMEfWPDruFOwG713UTBpW
+         6phb9O6KskjpiLS5pSR8uZOTlr7oGgiI9fdEVJiwPrD7sce3oXOdxxtEIk9jEE2Jzf86
+         Jma6XBKb1U7boI+I9MbjzeBdcsiIn+/MAQcayrxZDgS8pgt18youIbw4GKNJMMSHmxyR
+         EQmF3J7zBB94noSk9AlyZmGmWxYkke9sJjFDj8whIOh7Tx7egg/9KdesTLE9B95I4IYm
+         IcU8KDL5PDeC1B6fgfdtcHTz996B9P4/OSnz3SV3SNKQZ97jDPa2kwml+6gh/W9+j1zp
+         0o6g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@emergent-vc.20150623.gappssmtp.com header.s=20150623 header.b="zp/WHs8O";
+       spf=neutral (google.com: 209.85.220.41 is neither permitted nor denied by best guess record for domain of alok@emergent.vc) smtp.mailfrom=alok@emergent.vc
+Return-Path: <alok@emergent.vc>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id m34sor13492572qtc.49.2019.02.27.15.03.05
+        for <amit@intrologic.com>
+        (Google Transport Security);
+        Wed, 27 Feb 2019 15:03:05 -0800 (PST)
+Received-SPF: neutral (google.com: 209.85.220.41 is neither permitted nor denied by best guess record for domain of alok@emergent.vc) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@emergent-vc.20150623.gappssmtp.com header.s=20150623 header.b="zp/WHs8O";
+       spf=neutral (google.com: 209.85.220.41 is neither permitted nor denied by best guess record for domain of alok@emergent.vc) smtp.mailfrom=alok@emergent.vc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=emergent-vc.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=H5kF04+5/2hgeZtCsZ5bRKKQaAMO5DaDKMpDYtaIZIM=;
+        b=zp/WHs8OBAjsJSkY4YhIdeUW4NdWKvxgrnL9wpOJ0VhQ56NogivunCaC/tPNrfk84G
+         23EuxYiWnGas3a9FTY+jdlfca1qlGN8BNWuvSXHdjJlX1tJ3HsmfvYYsRZhIBhGCq5Pd
+         XZP520sNk+fl//UW8zQKz+OzsiIsXWjBrUTCISArVJK017/IznmZoeKsP1KrT/G8pgRs
+         AwFcCB9Jdx+nYNCY9meWB7GVxFyfV83ChObF1KC1LFtw0YR1uus5zttXF70+9Xf3cIJR
+         MsE1z09gtNi7G8sTX6qwYj1n0P5wYzUwGweDsYbZE+TlEEA8cvFnfVplLjltYNNM9LTy
+         +PTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=H5kF04+5/2hgeZtCsZ5bRKKQaAMO5DaDKMpDYtaIZIM=;
+        b=Yo8emgcs4udZrM/4ViFz1tj6qm+D+joB+F/1DcakyQCbPVWx+/1g7JSj2JrNEaN9xO
+         rQIsUbryD8BTvkx+Hwn2j6WnRnHlmcD40MBqFCMjesqHw6mP//vI2CHHKxmE3CjRJln7
+         3A/7xSB9LlnPUr3/rBbpYbq1zxFBqxmgDyBHH5NKFnO5l1Sk0BH2lrWaFK/5ekE/VenQ
+         9xYuCa7A07SP2yq2188mJwF/aExwNc90wAwU5yvouRwepuLxc/YiNHa64sfPOySjCAq3
+         znfcC/4+vz1Kv9F7On91NRl1aerLV7M2EarftWKOp/MGyeB45cZAEs1jlKVmcKs+7jUJ
+         Vrzw==
+X-Gm-Message-State: APjAAAWX3lNFZVjrBJIn8596AltVnmpI2mOMLKeJxagqrEryjmGxeBOJ
+	Obx+oouTONhAFa3EqzbF0TDIyC/C9UNP4bF0YLAb5QFhaaU=
+X-Google-Smtp-Source: AHgI3Iaf+d2R3Wt2IoOI0Ekl4U3xfB0RbUUV8Dnegw6gl9Erh8oZfo8eviW1MZg+jm7lIksaKBgLmssW59Sj4OXXOaM=
+X-Received: by 2002:ac8:2a82:: with SMTP id b2mr3799186qta.375.1551308584533;
+ Wed, 27 Feb 2019 15:03:04 -0800 (PST)
+MIME-Version: 1.0
+References: <CAB-+=peM38+hTF0DLwZrngcXoRe2NWzqMMkb5trXMUJOB=3mEQ@mail.gmail.com>
+ <CABqaNECVd+751bHz39micXqoFBEEbF2BZ2rh_pkcnXuzstX5yQ@mail.gmail.com> <CAB-+=pf68NcvKoz_T8oiB1vHPumjHhBkX4VaYaf7EdV5fgG++w@mail.gmail.com>
+In-Reply-To: <CAB-+=pf68NcvKoz_T8oiB1vHPumjHhBkX4VaYaf7EdV5fgG++w@mail.gmail.com>
+From: Alok Nandan <alok@emergent.vc>
+Date: Wed, 27 Feb 2019 15:02:53 -0800
+Message-ID: <CABqaNEChvMLYig5RKg5XADe89qu49f0AVYttVwKjM+9LF7sBAw@mail.gmail.com>
+Subject: Re: Onboarding onto IntroLogic (referred by Bhupesh)
+To: Amit Koren <amit@intrologic.com>
+Cc: Bhupesh Bansal <bbansal.usc@gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000001e535e0582e82d26"
+
+--0000000000001e535e0582e82d26
+Content-Type: text/plain; charset="UTF-8"
+
+Awesome, thank you so much!
+
+Was able to install and get in. thx - will give it a whirl.
+
+On Wed, Feb 27, 2019 at 3:01 PM Amit Koren <amit@intrologic.com> wrote:
+
+> Hey Alok,
+>
+> Fantastic, and apologies for the delay.  I just sent you an invitation to
+> download the app (it came via TestFlight).  The link in that email will
+> allow you to download the app, and from there you can sign in with the same
+> email address you used to sign up.  Let me know if you encounter any issues
+> or have any questions about the app.
+>
+> Best,
+> Amit
+> _____________________________
+> Amit Koren | IntroLogic
+> 617-320-4073
+> www.intrologic.com
+> Menlo Park
+>
+>
+> On Sun, Feb 24, 2019 at 3:58 PM Alok Nandan <alok@emergent.vc> wrote:
+>
+>> Thanks Amit. Nice to e-meet you too.
+>>
+>> I have done the steps 1 & 2.
+>>
+>> On Sat, Feb 23, 2019 at 10:52 AM Amit Koren <amit@intrologic.com> wrote:
+>>
+>>> Hi Alok,
+>>>
+>>> Nice to e-meet you.  Bhupesh mentioned to me that you were interested in
+>>> joining the beta of our app.  I'm excited to get you on board and get your
+>>> feedback.  It's currently available only via TestFlight (Apple's app
+>>> testing framework), so here are the steps to get started:
+>>>
+>>>    1. Sign up on our website here
+>>>    <https://intrologic.com/start?invitation_code=5c42a783585b4ad8b250cdc994a06073>.
+>>>    Make sure to connect your email account and optionally upload an export of
+>>>    your LinkedIn contacts
+>>>    2. Download TestFlight from the app store
+>>>    3. Let me know once you complete those two steps, and I'll send you
+>>>    an invitation code (from TestFlight) to download the app.
+>>>
+>>> Looking forward to your feedback!
+>>>
+>>> Regards,
+>>> Amit
+>>>
+>>> _____________________________
+>>> Amit Koren | IntroLogic
+>>> 617-320-4073
+>>> www.intrologic.com
+>>> Menlo Park
+>>>
+>>
+
+--0000000000001e535e0582e82d26
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Awesome, thank you so much!=C2=A0<br><div><br></div><div>W=
+as able to install and get in. thx - will give it a whirl.</div></div><br><=
+div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Feb=
+ 27, 2019 at 3:01 PM Amit Koren &lt;<a href=3D"mailto:amit@intrologic.com">=
+amit@intrologic.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
+;padding-left:1ex"><div dir=3D"ltr">Hey Alok,<div><br></div><div>Fantastic,=
+ and apologies for the delay.=C2=A0 I just sent you an invitation to downlo=
+ad the app (it came via TestFlight).=C2=A0 The link in that email will allo=
+w you to download the app, and from there you can sign in with the same ema=
+il address you used to sign up.=C2=A0 Let me know if you encounter=C2=A0any=
+ issues or have any questions about the app.</div><div><br></div><div>Best,=
+</div><div>Amit<br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail-m_-71=
+7428531104908585gmail_signature"><div dir=3D"ltr"><div style=3D"font-family=
+:Calibri,sans-serif;font-size:14px"><span style=3D"color:rgb(0,0,0);font-fa=
+mily:Verdana,Arial,Helvetica,sans-serif;font-size:11px">___________________=
+______</span><span style=3D"color:rgb(0,0,0);font-family:Verdana,Arial,Helv=
+etica,sans-serif;font-size:11px">____</span><br></div><div style=3D"font-fa=
+mily:Calibri,sans-serif;font-size:14px"><span style=3D"font-weight:bold;fon=
+t-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(103,10=
+3,112)">Amit Koren |</span><span style=3D"font-weight:bold;color:rgb(0,0,0)=
+;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px">=C2=A0</spa=
+n><span style=3D"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-=
+serif;font-size:11px"><font color=3D"#0000ff">IntroLogic</font></span><span=
+ style=3D"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;f=
+ont-size:11px;color:rgb(51,197,103)">=C2=A0</span></div><div style=3D"font-=
+size:12.8px;font-family:Calibri,sans-serif"><span style=3D"color:rgb(103,10=
+3,112);font-size:small">617-320-4073</span><br></div><div style=3D"font-siz=
+e:12.8px"><font face=3D"Calibri, sans-serif"><a href=3D"http://www.introlog=
+ic.com/" target=3D"_blank">www.intrologic.com</a></font></div><div style=3D=
+"font-size:12.8px"><span style=3D"color:rgb(103,103,112);font-family:Calibr=
+i,sans-serif;font-size:small">Menlo Park</span></div></div></div></div><br>=
+</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_=
+attr">On Sun, Feb 24, 2019 at 3:58 PM Alok Nandan &lt;<a href=3D"mailto:alo=
+k@emergent.vc" target=3D"_blank">alok@emergent.vc</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">Thanks Am=
+it. Nice to e-meet you too.=C2=A0<div><br></div><div>I have done the steps =
+1 &amp; 2.=C2=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Sat, Feb 23, 2019 at 10:52 AM Amit Koren &lt;<a hr=
+ef=3D"mailto:amit@intrologic.com" target=3D"_blank">amit@intrologic.com</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div=
+ dir=3D"ltr">Hi Alok,<div><br></div><div>Nice to e-meet you.=C2=A0 Bhupesh =
+mentioned to me that you were interested in joining the beta of our app.=C2=
+=A0 I&#39;m excited to get you on board and get your feedback.=C2=A0 It&#39=
+;s currently available only via TestFlight (Apple&#39;s app testing framewo=
+rk), so here are the steps to get started:</div><div><ol><li>Sign up on our=
+ website <a href=3D"https://intrologic.com/start?invitation_code=3D5c42a783=
+585b4ad8b250cdc994a06073" target=3D"_blank">here</a>.=C2=A0 Make sure to co=
+nnect your email account and optionally upload an export of your LinkedIn c=
+ontacts<br></li><li>Download TestFlight from the app store<br></li><li>Let =
+me know once you complete those two steps, and I&#39;ll send you an invitat=
+ion code (from TestFlight) to download the app.<br></li></ol></div><div>Loo=
+king forward to your feedback!</div><div><br></div><div>Regards,</div><div>=
+Amit</div><div><br></div><div><div><div><div dir=3D"ltr" class=3D"gmail-m_-=
+717428531104908585gmail-m_-480547900614623239gmail-m_2206114303149594800gma=
+il_signature"><div dir=3D"ltr"><div style=3D"font-family:Calibri,sans-serif=
+;font-size:14px"><span style=3D"color:rgb(0,0,0);font-family:Verdana,Arial,=
+Helvetica,sans-serif;font-size:11px">_________________________</span><span =
+style=3D"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;fo=
+nt-size:11px">____</span><br></div><div style=3D"font-family:Calibri,sans-s=
+erif;font-size:14px"><span style=3D"font-weight:bold;font-family:Verdana,Ar=
+ial,Helvetica,sans-serif;font-size:11px;color:rgb(103,103,112)">Amit Koren =
+|</span><span style=3D"font-weight:bold;color:rgb(0,0,0);font-family:Verdan=
+a,Arial,Helvetica,sans-serif;font-size:11px">=C2=A0</span><span style=3D"fo=
+nt-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11p=
+x"><font color=3D"#0000ff">IntroLogic</font></span><span style=3D"font-weig=
+ht:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color=
+:rgb(51,197,103)">=C2=A0</span></div><div style=3D"font-size:12.8px;font-fa=
+mily:Calibri,sans-serif"><span style=3D"color:rgb(103,103,112);font-size:sm=
+all">617-320-4073</span><br></div><div style=3D"font-size:12.8px"><font fac=
+e=3D"Calibri, sans-serif"><a href=3D"http://www.intrologic.com/" target=3D"=
+_blank">www.intrologic.com</a></font></div><div style=3D"font-size:12.8px">=
+<span style=3D"color:rgb(103,103,112);font-family:Calibri,sans-serif;font-s=
+ize:small">Menlo Park</span></div></div></div></div></div></div></div>
+</blockquote></div>
+</blockquote></div>
+</blockquote></div>
+
+--0000000000001e535e0582e82d26--

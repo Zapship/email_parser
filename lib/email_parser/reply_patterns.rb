@@ -140,6 +140,8 @@ module EmailParser
       # zh-TW:
       '原始郵件',
       # Extra patterns
+      # English
+      'Original Appointment',
       # German
       'Ursprüngliche Mitteilung',
       'Ursprüngliche Nachricht',
@@ -484,6 +486,8 @@ module EmailParser
       '.* wrote:$',
       '.* writes:$',
       '.* wrote on .*:',
+      'On .* via IntroLogic .*',
+
       # Spanish
       'El .* escribió:',
       '.* escribió:',

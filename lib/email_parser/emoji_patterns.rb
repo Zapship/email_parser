@@ -19,7 +19,7 @@ module EmailParser
       filename = File.expand_path(
         File.join('..', '..', '..', 'data', 'emoji-data.txt'), __FILE__)
       CSV.foreach(
-          filename, col_sep: " ;\t",
+          filename, col_sep: ";",
           headers: [:code, :default_style, :level, :status, :sources]) do |row|
         next if row[:default_style] != 'emoji'
         emojis << codepoints_to_string(row[:code])

@@ -202,6 +202,28 @@ describe EmailParser do
     end
   end
 
+  describe 'body_html' do
+    it 'correctly decodes the body' do
+      message = get_message('body_html/gmail_encoded_body_parts')
+      body_html = EmailParser.parse(message)[:body_html]
+      expect(body_html).to eq("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<div dir=\"ltr\">Awesome, thank you so much! <br><div><br></div>\n<div>Was able to install and get in. thx - will give it a whirl.</div>\n</div>\n<br><div class=\"gmail_quote\">\n<div dir=\"ltr\" class=\"gmail_attr\">On Wed, Feb 27, 2019 at 3:01 PM Amit Koren &lt;<a href=\"mailto:amit@intrologic.com\">amit@intrologic.com</a>&gt; wrote:<br>\n</div>\n<blockquote class=\"gmail_quote\" style=\"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex\">\n<div dir=\"ltr\">Hey Alok,<div><br></div>\n<div>Fantastic, and apologies for the delay.  I just sent you an invitation to download the app (it came via TestFlight).  The link in that email will allow you to download the app, and from there you can sign in with the same email address you used to sign up.  Let me know if you encounter any issues or have any questions about the app.</div>\n<div><br></div>\n<div>Best,</div>\n<div>Amit<br clear=\"all\"><div><div dir=\"ltr\" class=\"gmail-m_-717428531104908585gmail_signature\"><div dir=\"ltr\">\n<div style=\"font-family:Calibri,sans-serif;font-size:14px\">\n<span style=\"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\">_________________________</span><span style=\"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\">____</span><br>\n</div>\n<div style=\"font-family:Calibri,sans-serif;font-size:14px\">\n<span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(103,103,112)\">Amit Koren |</span><span style=\"font-weight:bold;color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\"> </span><span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\"><font color=\"#0000ff\">IntroLogic</font></span><span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(51,197,103)\"> </span>\n</div>\n<div style=\"font-size:12.8px;font-family:Calibri,sans-serif\">\n<span style=\"color:rgb(103,103,112);font-size:small\">617-320-4073</span><br>\n</div>\n<div style=\"font-size:12.8px\"><font face=\"Calibri, sans-serif\"><a href=\"http://www.intrologic.com/\" target=\"_blank\">www.intrologic.com</a></font></div>\n<div style=\"font-size:12.8px\"><span style=\"color:rgb(103,103,112);font-family:Calibri,sans-serif;font-size:small\">Menlo Park</span></div>\n</div></div></div>\n<br>\n</div>\n</div>\n<br><div class=\"gmail_quote\">\n<div dir=\"ltr\" class=\"gmail_attr\">On Sun, Feb 24, 2019 at 3:58 PM Alok Nandan &lt;<a href=\"mailto:alok@emergent.vc\" target=\"_blank\">alok@emergent.vc</a>&gt; wrote:<br>\n</div>\n<blockquote class=\"gmail_quote\" style=\"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex\">\n<div dir=\"ltr\">Thanks Amit. Nice to e-meet you too. <div><br></div>\n<div>I have done the steps 1 &amp; 2. </div>\n</div>\n<br><div class=\"gmail_quote\">\n<div dir=\"ltr\" class=\"gmail_attr\">On Sat, Feb 23, 2019 at 10:52 AM Amit Koren &lt;<a href=\"mailto:amit@intrologic.com\" target=\"_blank\">amit@intrologic.com</a>&gt; wrote:<br>\n</div>\n<blockquote class=\"gmail_quote\" style=\"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex\">\n<div dir=\"ltr\">Hi Alok,<div><br></div>\n<div>Nice to e-meet you.  Bhupesh mentioned to me that you were interested in joining the beta of our app.  I'm excited to get you on board and get your feedback.  It's currently available only via TestFlight (Apple's app testing framework), so here are the steps to get started:</div>\n<div><ol>\n<li>Sign up on our website <a href=\"https://intrologic.com/start?invitation_code=5c42a783585b4ad8b250cdc994a06073\" target=\"_blank\">here</a>.  Make sure to connect your email account and optionally upload an export of your LinkedIn contacts<br>\n</li>\n<li>Download TestFlight from the app store<br>\n</li>\n<li>Let me know once you complete those two steps, and I'll send you an invitation code (from TestFlight) to download the app.<br>\n</li>\n</ol></div>\n<div>Looking forward to your feedback!</div>\n<div><br></div>\n<div>Regards,</div>\n<div>Amit</div>\n<div><br></div>\n<div><div><div><div dir=\"ltr\" class=\"gmail-m_-717428531104908585gmail-m_-480547900614623239gmail-m_2206114303149594800gmail_signature\"><div dir=\"ltr\">\n<div style=\"font-family:Calibri,sans-serif;font-size:14px\">\n<span style=\"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\">_________________________</span><span style=\"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\">____</span><br>\n</div>\n<div style=\"font-family:Calibri,sans-serif;font-size:14px\">\n<span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(103,103,112)\">Amit Koren |</span><span style=\"font-weight:bold;color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\"> </span><span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px\"><font color=\"#0000ff\">IntroLogic</font></span><span style=\"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(51,197,103)\"> </span>\n</div>\n<div style=\"font-size:12.8px;font-family:Calibri,sans-serif\">\n<span style=\"color:rgb(103,103,112);font-size:small\">617-320-4073</span><br>\n</div>\n<div style=\"font-size:12.8px\"><font face=\"Calibri, sans-serif\"><a href=\"http://www.intrologic.com/\" target=\"_blank\">www.intrologic.com</a></font></div>\n<div style=\"font-size:12.8px\"><span style=\"color:rgb(103,103,112);font-family:Calibri,sans-serif;font-size:small\">Menlo Park</span></div>\n</div></div></div></div></div>\n</div>\r\n</blockquote>\n</div>\r\n</blockquote>\n</div>\r\n</blockquote>\n</div>\r\n</body></html>\n")
+    end
+  end
+
+  describe 'stripped_html' do
+    it 'correctly decodes and strips the body of gmail messages' do
+      message = get_message('body_html/gmail_encoded_body_parts')
+      stripped_html = EmailParser.parse(message)[:stripped_html]
+      expect(stripped_html).to eq("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<div dir=\"ltr\">Awesome, thank you so much! <br><div><br></div>\n<div>Was able to install and get in. thx - will give it a whirl.</div>\n</div>\n<br>\r\n</body></html>\n")
+    end
+
+    it 'correctly decodes and strips the signature of gmail messages' do
+      message = get_message('body_html/gmail_encoded_with_signature')
+      stripped_html = EmailParser.parse(message)[:stripped_html]
+      expect(stripped_html).to eq("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<div dir=\"ltr\">Bhupesh -- Thanks for the intro to Amit. <div><br></div>\n<div>Amit -- Thanks for sending the link to get connected to Charles. I really appreciate it.</div>\n<div><br></div>\n<div>Best,<br>Sandeep<br clear=\"all\"><div></div>\n<br>\n</div>\n</div>\n<br>\r\n</body></html>\n")
+    end
+  end
+
   describe 'attachment' do
     it 'correctly extract the attachments' do
       message = get_message('attachments/attachment')
@@ -254,6 +276,13 @@ describe EmailParser do
       text = EmailParser.parse(message)[:stripped_text]
       expect(text).to eq(
         "This is a sample message\nin two lines\n\nSome more text")
+    end
+    it 'does not discard lines starting with asterisks' do
+      message = get_message('stripped_text/text_between_asterisks')
+      text = EmailParser.parse(message)[:stripped_text]
+      expect(text).to eq(
+        "*Please reply to me with the percentage you'd like taken out of each\n\
+paycheck starting in 2017 by December 15th.\n\nSome more text")
     end
   end
 
@@ -358,7 +387,7 @@ describe EmailParser do
   end
 
   describe 'bugs' do
-    it 'correctly decodes emails with invalid byte sequences' do
+    xit 'correctly decodes emails with invalid byte sequences' do
       message = get_message('bugs/invalid_byte_sequence')
       parsed_message = JSON.parse(
         EmailParser.parse(message).to_json, symbolize_names: true)

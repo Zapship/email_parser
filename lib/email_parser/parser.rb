@@ -7,6 +7,7 @@ require 'email_parser/signature_patterns'
 
 require 'mail'
 require 'json'
+require 'nokogiri'
 
 module EmailParser
   module Parser
@@ -20,12 +21,15 @@ module EmailParser
         recipients: extract_recipients(message),
         headers: extract_headers(message),
         body_plain: extract_body_plain(message),
+        body_html: extract_body_html(message),
         attachments: extract_attachments(message),
         is_subscription: subscription?(message)
       }
 
+      data[:mime_type] = message.mime_type unless message.nil?
       data[:is_forwarded] = forwarded?(data[:subject], data[:body_plain])
       data[:stripped_text] = strip_text(data[:body_plain])
+      data[:stripped_html] = strip_html(data[:body_html], data[:headers])
       data[:stripped_subject] = strip_subject(data[:subject])
       data[:subject_has_emojis] = emojis?(data[:subject])
       data[:email_signature] = strip_signature(data[:body_plain])
@@ -44,7 +48,7 @@ module EmailParser
     def self.address_to_dict(address)
       {
         email: to_valid_utf8(address.address),
-        name: to_valid_utf8(address.display_name)
+        name: (address.display_name || '').include?('@') ? nil : to_valid_utf8(address.display_name)
       }
     end
     private_class_method(:address_to_dict)
@@ -153,6 +157,7 @@ module EmailParser
         part = message.text_part
         return nil if part.nil?
       else
+        # TODO RA consider supporting extraction from text/html messages
         return nil if message.mime_type != 'text/plain'
 
         part = message
@@ -164,6 +169,24 @@ module EmailParser
                                                        invalid: :replace)
     end
     private_class_method(:extract_body_plain)
+
+    def self.extract_body_html(message)
+      if message.multipart?
+        part = message.html_part
+        return nil if part.nil?
+      else
+        return nil if message.mime_type != 'text/html'
+
+        part = message
+      end
+
+      encoding = get_encoding(part.charset || part.body.charset || 'us-ascii')
+
+      decoded_body = part.decode_body.force_encoding(encoding).encode('utf-8', invalid: :replace)
+      doc = Nokogiri::HTML(decoded_body)
+      doc.to_html
+    end
+    private_class_method(:extract_body_html)
 
     def self.extract_filename(message)
       # This is a fixed version of Mail::Message.find_attachment
@@ -251,33 +274,20 @@ module EmailParser
     def self.strip_text(body)
       return nil if body.nil?
 
-      inline_re = Regexp.new('^[>*|]+( |$)')
+      inline_re = Regexp.new('^[>|]+( |$)')
       lines = body.split("\n")
+
       new_lines = []
-      skip_next = false
       lines.length.times do |i|
         line = lines[i].strip
+        next if inline_re.match(line)
+
         if line.length > MAX_LINE_LENGTH
           new_lines << line
           next
         end
 
-        if skip_next
-          skip_next = false
-          next
-        end
-
-        next if inline_re.match(line)
         next if ReplyPatterns::REPLY_WROTE_RE.match(line)
-
-        if i != lines.length - 1 && lines[i + 1].length <= MAX_LINE_LENGTH
-          merged_line = line + ' ' + lines[i + 1].strip
-          if ReplyPatterns::REPLY_WROTE_RE.match(merged_line)
-            skip_next = true
-            next
-          end
-        end
-
         next if SentPatterns::SENT_FROM_RE.match(line)
 
         break if ForwardPatterns::FORWARD_BODY_RE.match(line)
@@ -294,9 +304,27 @@ module EmailParser
         new_lines.pop
       end
 
-      new_lines.join("\n").strip.gsub(/\n{2,}/, "\n\n")
+      new_lines = new_lines.join("\n").strip.gsub(/\n{2,}/, "\n\n")
+      new_lines
     end
     private_class_method(:strip_text)
+
+    def self.strip_html(body, headers)
+      return nil if body.nil?
+
+      doc = Nokogiri::HTML(body)
+      # TODO: Handle non-gmail html sources
+      if headers.keys.include?('X-Google-Smtp-Source')
+        quoted_content = doc.xpath("//div[@class='gmail_quote']").first
+        quoted_content&.remove
+
+        signature_content = doc.xpath("//div[@class='gmail_signature']").first
+        signature_content&.remove
+      end
+
+      doc.to_html
+    end
+    private_class_method(:strip_html)
 
     def self.strip_signature(body)
       return nil if body.nil?
