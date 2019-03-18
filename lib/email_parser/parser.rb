@@ -48,7 +48,7 @@ module EmailParser
     def self.address_to_dict(address)
       {
         email: to_valid_utf8(address.address),
-        name: (address.display_name || '').include?('@') ? nil : to_valid_utf8(address.display_name)
+        name: to_valid_utf8(address.display_name)
       }
     end
     private_class_method(:address_to_dict)
@@ -278,6 +278,7 @@ module EmailParser
       lines = body.split("\n")
 
       new_lines = []
+      skip_next = false
       lines.length.times do |i|
         line = lines[i].strip
         next if inline_re.match(line)
@@ -287,7 +288,22 @@ module EmailParser
           next
         end
 
+        if skip_next
+          skip_next = false
+          next
+        end
+
+        next if inline_re.match(line)
         next if ReplyPatterns::REPLY_WROTE_RE.match(line)
+
+        if i != lines.length - 1 && lines[i + 1].length <= MAX_LINE_LENGTH
+          merged_line = line + ' ' + lines[i + 1].strip
+          if ReplyPatterns::REPLY_WROTE_RE.match(merged_line)
+            skip_next = true
+            next
+          end
+        end
+
         next if SentPatterns::SENT_FROM_RE.match(line)
 
         break if ForwardPatterns::FORWARD_BODY_RE.match(line)

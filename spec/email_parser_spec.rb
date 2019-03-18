@@ -389,17 +389,19 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
   describe 'bugs' do
     xit 'correctly decodes emails with invalid byte sequences' do
       message = get_message('bugs/invalid_byte_sequence')
-      parsed_message = JSON.parse(
-        EmailParser.parse(message).to_json, symbolize_names: true)
+      parsed_message = EmailParser.parse(message)
 
       expect(parsed_message).to include(
         is_forwarded: false,
         attachments: [
           { name: 'image001.jpg', mime_type: 'image/jpeg', size: 0 },
-          { name: 'INVITACIO�N.pdf', mime_type: 'application/pdf', size: 0 },
-          { name: 'Inscripci�n.docx', mime_type: 'application/docx', size: 0 }
+          # This attachment gets incorrectly decoded as "INVITACIOìN.pdf".
+          # See https://github.com/mikel/mail/issues/544.
+          # Test the header decoding at http://dogmamix.com/MimeHeadersDecoder/.
+          { name: 'INVITACIÓN.pdf', mime_type: 'application/pdf', size: 0 },
+          { name: 'Inscripción.docx', mime_type: 'application/docx', size: 0 }
         ],
-        subject: 'Investigaci�n sobre'
+        subject: 'Investigación sobre'
       )
     end
   end
