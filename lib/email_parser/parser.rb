@@ -157,7 +157,6 @@ module EmailParser
         part = message.text_part
         return nil if part.nil?
       else
-        # TODO RA consider supporting extraction from text/html messages
         return nil if message.mime_type != 'text/plain'
 
         part = message
