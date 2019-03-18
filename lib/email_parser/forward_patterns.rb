@@ -116,7 +116,7 @@ module EmailParser
       'Mensaje reenviado de .*',
       'Mensaje remitido',
       'Mensaje enviado',
-    ]
+    ].freeze
 
     FORWARD_BODY_START_PATTERNS = [
       # English
@@ -128,13 +128,14 @@ module EmailParser
       'Anfang der weitergeleiteten Nachricht:',
       # Italian
       'Inizio messaggio inoltrato:',
-    ]
+    ].freeze
 
     FORWARD_BODY_RE = Regexp.new(
       '^(' + FORWARD_BODY_START_PATTERNS.uniq.join('|') + '|' \
         '---+ ?(' + FORWARD_HEADER_PATTERNS.uniq.join('|') + ') ?---+' \
       ')$',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
 
     # List of forwarded subjects taken from
     # https://en.wikipedia.org/wiki/List_of_email_subject_abbreviations#Abbreviations_in_other_languages
@@ -196,10 +197,11 @@ module EmailParser
       # Turkish
       'İLT',
       'İlet',
-    ]
+    ].freeze
 
     FORWARD_SUBJECT_RE = Regexp.new(
       '^(' + FORWARD_SUBJECTS.uniq.join('|') + '): ',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
   end
 end

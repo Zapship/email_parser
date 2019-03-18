@@ -1,0 +1,9 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+  - .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'bin/*'
+    - 'vendor/**/*'

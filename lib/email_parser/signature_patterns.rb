@@ -133,11 +133,11 @@ module EmailParser
       'Yours always',
       'Yours ever',
       'Yours respectfully',
-      'Yours'
+      'Yours',
     ].freeze
 
     PHONE_CLOSING_PATTERNS = [
-      '^sent from .*'
+      '^sent from .*',
     ].freeze
 
     PHONE_CLOSING_RE = Regexp.new(

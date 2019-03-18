@@ -95,7 +95,7 @@ describe EmailParser do
         { name: 'Andrés Muñoz', email: 'munoz@mail.com', type: 'cc' },
         { name: 'Antonio Antunez', email: 'antonio@mail.com', type: 'cc' },
         { name: 'Bruno Magic', email: 'bruno@mail.com', type: 'bcc' },
-        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' }
+        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' },
       ])
     end
 
@@ -103,7 +103,7 @@ describe EmailParser do
       message = get_message('recipients/undisclosed_recipients')
       recipients = EmailParser.parse(message)[:recipients]
       expect(recipients).to eq([
-        { name: nil, email: 'bcc@gmail.com', type: 'bcc' }
+        { name: nil, email: 'bcc@gmail.com', type: 'bcc' },
       ])
     end
 
@@ -114,7 +114,7 @@ describe EmailParser do
         { name: 'Andrés Muñoz', email: 'munoz@mail.com', type: 'cc' },
         { name: 'Antonio Antunez', email: 'antonio@mail.com', type: 'cc' },
         { name: 'Bruno Magic', email: 'bruno@mail.com', type: 'bcc' },
-        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' }
+        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' },
       ])
     end
 
@@ -125,7 +125,7 @@ describe EmailParser do
         { name: 'Pablo Egaña', email: 'egana@mail.com', type: 'to' },
         { name: 'Juan Acuña', email: 'jacuna@mail.com', type: 'to' },
         { name: 'Bruno Magic', email: 'bruno@mail.com', type: 'bcc' },
-        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' }
+        { name: 'Carla Cavada', email: 'carla@mail.com', type: 'bcc' },
       ])
     end
 
@@ -136,7 +136,7 @@ describe EmailParser do
         { name: 'Pablo Egaña', email: 'egana@mail.com', type: 'to' },
         { name: 'Juan Acuña', email: 'jacuna@mail.com', type: 'to' },
         { name: 'Andrés Muñoz', email: 'munoz@mail.com', type: 'cc' },
-        { name: 'Antonio Antunez', email: 'antonio@mail.com', type: 'cc' }
+        { name: 'Antonio Antunez', email: 'antonio@mail.com', type: 'cc' },
       ])
     end
 
@@ -231,7 +231,7 @@ describe EmailParser do
       expect(attachments).to eq([
         { name: 'image001.jpg', size: 9, mime_type: 'image/jpeg' },
         { name: 'image002.jpg', size: 9, mime_type: 'image/jpeg' },
-        { name: 'image003.jpg', size: 9, mime_type: 'image/jpeg' }
+        { name: 'image003.jpg', size: 9, mime_type: 'image/jpeg' },
       ])
     end
   end
@@ -275,14 +275,16 @@ describe EmailParser do
       message = get_message('stripped_text/stripped_text')
       text = EmailParser.parse(message)[:stripped_text]
       expect(text).to eq(
-        "This is a sample message\nin two lines\n\nSome more text")
+        "This is a sample message\nin two lines\n\nSome more text"
+      )
     end
+
     it 'does not discard lines starting with asterisks' do
       message = get_message('stripped_text/text_between_asterisks')
       text = EmailParser.parse(message)[:stripped_text]
       expect(text).to eq(
-        "*Please reply to me with the percentage you'd like taken out of each\n\
-paycheck starting in 2017 by December 15th.\n\nSome more text")
+        "*Please reply to me with the percentage you'd like taken out of each\npaycheck starting in 2017 by December 15th.\n\nSome more text"
+      )
     end
   end
 
@@ -291,7 +293,8 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
       message = get_message('stripped_subject/subject')
       subject = EmailParser.parse(message)[:stripped_subject]
       expect(subject).to eq(
-        'Dieses Email ist weitergeleitet')
+        'Dieses Email ist weitergeleitet'
+      )
     end
   end
 
@@ -321,16 +324,19 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
       signature = EmailParser.parse(message)[:email_signature]
       expect(signature).to eq('John')
     end
+
     it 'correctly parses a signature after a closing' do
       message = get_message('email_signature/long_name_signature')
       signature = EmailParser.parse(message)[:email_signature]
       expect(signature).to eq('Aloysius Paulus van Gaal')
     end
+
     it 'correctly parses a signature after a closing in the same line' do
       message = get_message('email_signature/closing_no_newline_signature')
       signature = EmailParser.parse(message)[:email_signature]
       expect(signature).to eq('John')
     end
+
     it 'correctly parses a signature w/closing when before a phone signature' do
       message = get_message('email_signature/long_signature_with_phone_sig')
       signature = EmailParser.parse(message)[:email_signature]
@@ -344,6 +350,7 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
                               "john@domain.com\n"\
                               'www.domain.com')
     end
+
     # TODO(RA, 2016-08-24): Use ML tools to detect signature lines
     xit 'correctly parses a long signature without closing' do
       message = get_message('email_signature/long_signature_no_closing')
@@ -358,6 +365,7 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
                               "john@domain.com\n"\
                               'www.domain.com')
     end
+
     xit 'correctly parses a long signature with footer without closing' do
       message = get_message('email_signature/long_signature_with_footer_no_closing')
       signature = EmailParser.parse(message)[:email_signature]
@@ -371,6 +379,7 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
                               "john@domain.com\n"\
                               'www.domain.com')
     end
+
     xit 'correctly parses a pipe separated signature without closing' do
       message = get_message('email_signature/pipe_signature_no_closing')
       signature = EmailParser.parse(message)[:email_signature]
@@ -399,7 +408,7 @@ paycheck starting in 2017 by December 15th.\n\nSome more text")
           # See https://github.com/mikel/mail/issues/544.
           # Test the header decoding at http://dogmamix.com/MimeHeadersDecoder/.
           { name: 'INVITACIÓN.pdf', mime_type: 'application/pdf', size: 0 },
-          { name: 'Inscripción.docx', mime_type: 'application/docx', size: 0 }
+          { name: 'Inscripción.docx', mime_type: 'application/docx', size: 0 },
         ],
         subject: 'Investigación sobre'
       )

@@ -145,11 +145,12 @@ module EmailParser
       # German
       'Ursprüngliche Mitteilung',
       'Ursprüngliche Nachricht',
-    ]
+    ].freeze
 
     REPLY_HEADER_RE = Regexp.new(
       '^---+ ?(' + REPLY_HEADER_PATTERNS.uniq.join('|') + ') ?---+$',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
 
     # Patterns taken from
     # https://transvision.mozfr.org/api/v1/entity/aurora/?id=mail/chrome/messenger/messengercompose/composeMsgs.properties:mailnews.reply_header_authorwrotesingle
@@ -502,11 +503,12 @@ module EmailParser
       '.* 오후 .*에 .*님이 작성:',
       # General
       '.* GMT.* <.+@.+>:',
-    ]
+    ].freeze
 
     REPLY_WROTE_RE = Regexp.new(
       '^(' + REPLY_WROTE_PATTERNS.uniq.join('|') + ')$',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
 
     # List of reply subjects taken from
     # https://en.wikipedia.org/wiki/List_of_email_subject_abbreviations#Abbreviations_in_other_languages
@@ -571,10 +573,11 @@ module EmailParser
       # Turkish
       'YNT',
       'Yanıt',
-    ]
+    ].freeze
 
     REPLY_SUBJECT_RE = Regexp.new(
       '^(' + REPLY_SUBJECTS.uniq.join('|') + '): ',
-      Regexp::IGNORECASE)
+      Regexp::IGNORECASE
+    )
   end
 end

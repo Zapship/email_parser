@@ -23,7 +23,7 @@ module EmailParser
         body_plain: extract_body_plain(message),
         body_html: extract_body_html(message),
         attachments: extract_attachments(message),
-        is_subscription: subscription?(message)
+        is_subscription: subscription?(message),
       }
 
       data[:mime_type] = message.mime_type unless message.nil?
@@ -37,7 +37,6 @@ module EmailParser
       data
     end
 
-
     def self.to_valid_utf8(value)
       return nil if value.nil?
 
@@ -48,7 +47,7 @@ module EmailParser
     def self.address_to_dict(address)
       {
         email: to_valid_utf8(address.address),
-        name: to_valid_utf8(address.display_name)
+        name: to_valid_utf8(address.display_name),
       }
     end
     private_class_method(:address_to_dict)
@@ -189,18 +188,15 @@ module EmailParser
 
     def self.extract_filename(message)
       # This is a fixed version of Mail::Message.find_attachment
-      content_type_name = message.header[:content_type].filename rescue nil
-      content_disp_name = message.header[:content_disposition].filename rescue nil
-      content_loc_name  = message.header[:content_location].location rescue nil
+      content_type_name = message.header[:content_type]&.filename
+      content_disp_name = message.header[:content_disposition]&.filename
+      content_loc_name  = message.header[:content_location]&.location
 
-      filename = if content_type_name
-                   content_type_name
-                 elsif content_disp_name
-                   content_disp_name
-                 elsif content_loc_name
-                   content_loc_name
-                 end
-      filename = Mail::Encodings.decode_encode(filename, :decode) if filename rescue filename
+      filename = content_type_name || content_disp_name || content_loc_name
+
+      Mail::Encodings.decode_encode(filename, :decode) if filename
+    rescue
+      nil
     end
     private_class_method(:extract_filename)
 
@@ -221,7 +217,9 @@ module EmailParser
         end
 
         filename = extract_filename(part)
-        next if filename.nil? && content_disposition.start_with?('inline')
+        if filename.nil? && content_disposition.start_with?('inline')
+          next
+        end
         # TODO(skreft): if filename is None try to extract it from the
         #    content-id
 
