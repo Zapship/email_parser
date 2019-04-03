@@ -1,6 +1,5 @@
 require 'email_parser/version'
 require 'email_parser/forward_patterns'
-require 'email_parser/emoji_patterns'
 require 'email_parser/reply_patterns'
 require 'email_parser/sent_patterns'
 require 'email_parser/signature_patterns'
@@ -31,7 +30,6 @@ module EmailParser
       data[:stripped_text] = strip_text(data[:body_plain])
       data[:stripped_html] = strip_html(data[:body_html], data[:headers])
       data[:stripped_subject] = strip_subject(data[:subject])
-      data[:subject_has_emojis] = emojis?(data[:subject])
       data[:email_signature] = strip_signature(data[:body_plain])
 
       data
@@ -377,10 +375,5 @@ module EmailParser
       stripped_subject
     end
     private_class_method(:strip_subject)
-
-    def self.emojis?(text)
-      !EmojiPatterns::EMOJI_RE.match(text).nil?
-    end
-    private_class_method(:emojis?)
   end
 end
