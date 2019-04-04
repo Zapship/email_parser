@@ -4,9 +4,6 @@ workflows:
   test:
     jobs:
       - test-2.6
-      - test-2.5
-      - test-2.4
-      - test-2.3
 
 jobs:
   test-2.6: &test-template
@@ -42,17 +39,3 @@ jobs:
           name: Rubocop
           command: bundle exec rubocop
 
-  test-2.5:
-    <<: *test-template
-    docker:
-      - image: circleci/ruby:2.5
-
-  test-2.4:
-    <<: *test-template
-    docker:
-      - image: circleci/ruby:2.4
-  
-  test-2.3:
-    <<: *test-template
-    docker:
-      - image: circleci/ruby:2.3
