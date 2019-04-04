@@ -298,26 +298,6 @@ describe EmailParser do
     end
   end
 
-  describe 'subject_has_emojis' do
-    it 'returns false when no emojis' do
-      message = get_message('subject_has_emojis/no_emojis')
-      emojis = EmailParser.parse(message)[:subject_has_emojis]
-      expect(emojis).to be(false)
-    end
-
-    it 'returns false when text emojis' do
-      message = get_message('subject_has_emojis/text_emojis')
-      emojis = EmailParser.parse(message)[:subject_has_emojis]
-      expect(emojis).to be(false)
-    end
-
-    it 'returns true when emojis' do
-      message = get_message('subject_has_emojis/many_emojis')
-      emojis = EmailParser.parse(message)[:subject_has_emojis]
-      expect(emojis).to be(true)
-    end
-  end
-
   describe 'email signature' do
     it 'correctly parses a signature after double dash' do
       message = get_message('email_signature/simple_signature')
