@@ -324,13 +324,32 @@ module EmailParser
       return nil if body.nil?
 
       doc = Nokogiri::HTML(body)
-      # TODO: Handle non-gmail html sources
-      if headers.keys.include?('X-Google-Smtp-Source')
-        quoted_content = doc.xpath("//div[@class='gmail_quote']").first
-        quoted_content&.remove
 
-        signature_content = doc.xpath("//div[@class='gmail_signature']").first
-        signature_content&.remove
+
+      # remove quoted content
+      remove_element_onwards(doc.xpath("//div[@class='gmail_quote']").first) #gmail clients
+      remove_element_onwards(doc.xpath("//div[@id='appendonsend']").first) #office365 clients
+      remove_element_onwards(doc.xpath("//blockquote").first) ## apple clients
+
+      # remove "On Apr 12, 2019, at 12:42 PM, Amit Koren <amit@intrologic.com> wrote:"
+      doc.xpath('//div').find{|node| /on.*wrote:$/i.match(node.text)}&.remove
+
+      # remove signature
+      remove_element_onwards(doc.xpath("//div[@class='gmail_signature']").first) #gmail clients
+      remove_element_onwards(doc.xpath("//div[@id='AppleMailSignature']").first) #ios mail app
+      remove_element_onwards(doc.xpath("//div[@id='Signature']").first) #office365 clients
+
+      # remove HRs
+      doc.xpath('//hr').each(&:remove) # office 365 clients
+
+      # remove trailing whitespace
+      last_text_element = doc.xpath('//*[normalize-space(text())]').last
+      unless last_text_element.nil?
+        last_text_element.children.reverse.each do |child|
+          break unless child.text.strip.empty?
+          child.remove if %w(p br div).include?(child.name)
+        end
+        remove_element_onwards(last_text_element.next_sibling)
       end
 
       doc.to_html
@@ -375,5 +394,14 @@ module EmailParser
       stripped_subject
     end
     private_class_method(:strip_subject)
+
+    def self.remove_element_onwards(element)
+      return if element.nil?
+      while element.next_sibling
+        element.next_sibling.remove
+      end
+      element.remove
+    end
+    private_class_method(:remove_element_onwards)
   end
 end

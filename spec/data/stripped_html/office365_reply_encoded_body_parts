@@ -1,0 +1,221 @@
+Delivered-To: amit@intrologic.com
+Received: by 2002:a5d:44d0:0:0:0:0:0 with SMTP id z16csp35097wrr;
+        Fri, 12 Apr 2019 15:18:59 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqw1rVPkVKE6IFZMPwjL3P1er15IjGf+wXLVUhfmika2dijXlUFqWKzB6S9fYfiw5JcFCXdP
+X-Received: by 2002:a9d:3d03:: with SMTP id a3mr37955142otc.72.1555107539245;
+        Fri, 12 Apr 2019 15:18:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1555107539; cv=none;
+        d=google.com; s=arc-20160816;
+        b=DxHLGHnTfpj8L8m9oRtAiJBHlrmJg35yMfJsjyPXK076utp6/vQ5gxFfvlHOuqc2pP
+         yhAntPusCW8hGOCVU1+dyNBCCpP1de0pfMLbtrxOIP6tZg/qd4YU2yhv1KDSjZCmFRnY
+         145Sown7YgXXub7XFUdiqqtQY610zcV4xy1nPqwFStZZ6N3HTDSefUe1aJwhaRCA5Dsn
+         E//YGiE/l22i9kFtRqK9O5aE377wnDj7PI2MoX0sQXuQlcCqil+1ftiWDtyn/UAAm5yl
+         nrjAoUUQ99RV7jDs5Ts35c9vxbxqhrljDAwWh8pXwwb1L8MqrAdmY1XBpFo+16++bN86
+         2X0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-language:accept-language:in-reply-to
+         :references:message-id:date:thread-index:thread-topic:subject:to
+         :from:dkim-signature;
+        bh=KqoVfOjKoyFSeKsWA3G4qRkEdMvBfLdPysXAU70Y10c=;
+        b=SKhvtp1YcuteAwQHtl1w0bgWsofUNTlULTr1rtRvOoDZP1ASi61OPaoQiDzfhYQjTB
+         EZ0EFdKEZn4QGHjpFuf5vqgIPVPziKpQ8CSR/My00KySAweHxBwNrKrF510jUAit5SUu
+         OSnWQ5F2Thyy6oVt/OUEESkebR89+OGgMETB2GtbyvBIb/EMqnzj6NYlLK3RfhirCTAY
+         oqhrXdnyO5Bf8BxvPk5Tj8ZfEaQ+etzapc6B+d7tvXBAzY42D1/PcgNSKLtbu1Wb5bsZ
+         qncxtRL8DRo3jeCPQ3/+0X95aw0X9J06ugF6Pr2L9fFWWVrOx6+PC/tYt4dC+EdbcV0A
+         l31w==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@sudoai.onmicrosoft.com header.s=selector1-sudoai-onmicrosoft-com header.b=ImvDrW8B;
+       spf=pass (google.com: domain of amit@sudoai.onmicrosoft.com designates 40.107.71.101 as permitted sender) smtp.mailfrom=amit@sudoai.onmicrosoft.com
+Return-Path: <amit@sudoai.onmicrosoft.com>
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com (mail-eopbgr710101.outbound.protection.outlook.com. [40.107.71.101])
+        by mx.google.com with ESMTPS id r18si21126627ota.16.2019.04.12.15.18.58
+        for <amit@intrologic.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 12 Apr 2019 15:18:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of amit@sudoai.onmicrosoft.com designates 40.107.71.101 as permitted sender) client-ip=40.107.71.101;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sudoai.onmicrosoft.com header.s=selector1-sudoai-onmicrosoft-com header.b=ImvDrW8B;
+       spf=pass (google.com: domain of amit@sudoai.onmicrosoft.com designates 40.107.71.101 as permitted sender) smtp.mailfrom=amit@sudoai.onmicrosoft.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sudoai.onmicrosoft.com; s=selector1-sudoai-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KqoVfOjKoyFSeKsWA3G4qRkEdMvBfLdPysXAU70Y10c=;
+ b=ImvDrW8BUswyYoDRTzMcSCKuvoWrZuuohlTMIekNTiaLgdqLUoKeaqvXlcSSjeICXn5j47eXLpIdBfjgQ8cNa4IXsHCn8hNxx3QWeiygflxlTFzMGHIMIhv7kfFVpM/TDH7dp1wrtYsViCuXebupeQEre76a183yqu3L+qkhy9o=
+Received: from BY5PR16MB3255.namprd16.prod.outlook.com (10.255.162.211) by
+ BY5PR16MB3111.namprd16.prod.outlook.com (10.255.160.89) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1771.19; Fri, 12 Apr 2019 22:18:56 +0000
+Received: from BY5PR16MB3255.namprd16.prod.outlook.com
+ ([fe80::8036:a7d7:699c:5b08]) by BY5PR16MB3255.namprd16.prod.outlook.com
+ ([fe80::8036:a7d7:699c:5b08%2]) with mapi id 15.20.1750.014; Fri, 12 Apr 2019
+ 22:18:56 +0000
+From: Amit Koren <amit@sudoai.onmicrosoft.com>
+To: Amit Koren <amit@intrologic.com>
+Subject: Re: Testing
+Thread-Topic: Testing
+Thread-Index: AQHU8XlHr/25DbIe+USnNsx2xAJfW6Y5D6TngAAIzws=
+Date: Fri, 12 Apr 2019 22:18:56 +0000
+Message-ID:
+ <BY5PR16MB3255AC2D18E077529754CBA7FA280@BY5PR16MB3255.namprd16.prod.outlook.com>
+References:
+ <CAB-+=pe-ePUxD2RCj1Oay-Qy4-p0fVETdFPpw7C3xsdq+Hxj4w@mail.gmail.com>,<BY5PR16MB3255B8AF1875D9B3B2FD7FC5FA280@BY5PR16MB3255.namprd16.prod.outlook.com>
+In-Reply-To:
+ <BY5PR16MB3255B8AF1875D9B3B2FD7FC5FA280@BY5PR16MB3255.namprd16.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=amit@sudoai.onmicrosoft.com;
+x-originating-ip: [2603:3024:18af:a000:35:e381:4486:ccc2]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f0d993e8-a421-44a7-df26-08d6bf94dab7
+x-microsoft-antispam:
+ BCL:0;PCL:0;RULEID:(2390118)(7020095)(4652040)(7021145)(8989299)(4534185)(7022145)(4603075)(4627221)(201702281549075)(8990200)(7048125)(7024125)(7027125)(7023125)(5600139)(711020)(4605104)(2017052603328)(7193020);SRVR:BY5PR16MB3111;
+x-ms-traffictypediagnostic: BY5PR16MB3111:
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam-prvs:
+ <BY5PR16MB31113772AB7C52689451A10AFA280@BY5PR16MB3111.namprd16.prod.outlook.com>
+x-forefront-prvs: 0005B05917
+x-forefront-antispam-report:
+ SFV:NSPM;SFS:(10019020)(346002)(136003)(366004)(376002)(396003)(39830400003)(189003)(199004)(6246003)(186003)(86362001)(74316002)(606006)(106356001)(316002)(105004)(486006)(7116003)(7696005)(11346002)(99286004)(6916009)(52536014)(46003)(19627405001)(55016002)(221733001)(86442003)(97736004)(93156006)(476003)(53936002)(2906002)(5660300002)(7736002)(446003)(236005)(71190400001)(9686003)(6306002)(81156014)(76176011)(64872007)(81166006)(256004)(3480700005)(6116002)(2940100002)(8936002)(105586002)(68736007)(6456002)(102836004)(54896002)(25786009)(14454004)(8676002)(71200400001)(6436002)(4744005)(53546011)(508600001)(86902001)(33656002)(6506007)(229853002);DIR:OUT;SFP:1102;SCL:1;SRVR:BY5PR16MB3111;H:BY5PR16MB3255.namprd16.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;MX:1;A:0;
+received-spf: None (protection.outlook.com: sudoai.onmicrosoft.com does not
+ designate permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info:
+ kSF4lKlOgQsGf8iCEH+I3lPH7Ywe6OAtx5rh1S1/nVl05ha/IhTXYVe6rN2nCJbPaT0efs23cEuY3HAq0j5s9Nx/ur4dJPrqlqeCvZvpOtAHsfQO4izvuBSh9SgodUmaLmmlrUVmQwPP7b6eexp2tQsyQH2eqVUAsFqUyix9VXPhHfRhoNFpC5aQKGPdx33NgyjuH1CWOBDoh0YiPPiVtfqsZaaK5dMuU367HQqVyWV6bguWqT50EYXnpUsniVlnaGYKV97eDgjeSaqv8hnfP0aSJ32AtZmxJ4DqdGP1ZXU38oSRRzp51TwvhDhwyr275BgwPSA2wv/+0GR+ZmLQKNcHpwTzFJNhi0aOZgNpQPnLf+CozcRzY+DEuuYnhtGeKvCvq1f2N+eFFFQQfMb3qWov47xjEjxRGvJl9XzRb0E=
+Content-Type: multipart/alternative;
+	boundary="_000_BY5PR16MB3255AC2D18E077529754CBA7FA280BY5PR16MB3255namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: sudoai.onmicrosoft.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0d993e8-a421-44a7-df26-08d6bf94dab7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2019 22:18:56.3430
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 21540b7d-8ec2-40cb-bf39-53adfee4708a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR16MB3111
+
+--_000_BY5PR16MB3255AC2D18E077529754CBA7FA280BY5PR16MB3255namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+This is a reply from an Office 365 client
+
+Amit Koren
+IntroLogic
+________________________________
+From: Amit Koren
+Sent: Friday, April 12, 2019 2:47 PM
+To: Amit Koren
+Subject: Re: Testing
+
+This is a reply from an Office365 client
+________________________________
+From: Amit Koren <amit@intrologic.com>
+Sent: Friday, April 12, 2019 2:46 PM
+To: Amit Koren
+Subject: Testing
+
+Testing the content of MSFT replies
+_____________________________
+Amit Koren | IntroLogic
+617-320-4073
+www.intrologic.com<http://www.intrologic.com/>
+Menlo Park
+
+--_000_BY5PR16MB3255AC2D18E077529754CBA7FA280BY5PR16MB3255namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+This is a reply from an Office 365 client</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Amit Koren</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+IntroLogic</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Amit Koren<br>
+<b>Sent:</b> Friday, April 12, 2019 2:47 PM<br>
+<b>To:</b> Amit Koren<br>
+<b>Subject:</b> Re: Testing</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+This is a reply from an Office365 client</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Amit Koren &lt;amit=
+@intrologic.com&gt;<br>
+<b>Sent:</b> Friday, April 12, 2019 2:46 PM<br>
+<b>To:</b> Amit Koren<br>
+<b>Subject:</b> Testing</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">Testing the content of MSFT replies<br clear=3D"all">
+<div>
+<div dir=3D"ltr" class=3D"x_x_gmail_signature">
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,sans-serif; font-size:14px"><span style=
+=3D"color:rgb(0,0,0); font-family:Verdana,Arial,Helvetica,sans-serif; font-=
+size:11px">_________________________</span><span style=3D"color:rgb(0,0,0);=
+ font-family:Verdana,Arial,Helvetica,sans-serif; font-size:11px">____</span=
+><br>
+</div>
+<div style=3D"font-family:Calibri,sans-serif; font-size:14px"><span style=
+=3D"font-weight:bold; font-family:Verdana,Arial,Helvetica,sans-serif; font-=
+size:11px; color:rgb(103,103,112)">Amit Koren |</span><span style=3D"font-w=
+eight:bold; color:rgb(0,0,0); font-family:Verdana,Arial,Helvetica,sans-seri=
+f; font-size:11px">&nbsp;</span><span style=3D"font-weight:bold; font-famil=
+y:Verdana,Arial,Helvetica,sans-serif; font-size:11px"><font color=3D"#0000f=
+f">IntroLogic</font></span><span style=3D"font-weight:bold; font-family:Ver=
+dana,Arial,Helvetica,sans-serif; font-size:11px; color:rgb(51,197,103)">&nb=
+sp;</span></div>
+<div style=3D"font-size:12.8px; font-family:Calibri,sans-serif"><span style=
+=3D"color:rgb(103,103,112); font-size:small">617-320-4073</span><br>
+</div>
+<div style=3D"font-size:12.8px"><font face=3D"Calibri, sans-serif"><a href=
+=3D"http://www.intrologic.com/" target=3D"_blank">www.intrologic.com</a></f=
+ont></div>
+<div style=3D"font-size:12.8px"><span style=3D"color:rgb(103,103,112); font=
+-family:Calibri,sans-serif; font-size:small">Menlo Park</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BY5PR16MB3255AC2D18E077529754CBA7FA280BY5PR16MB3255namp_--
