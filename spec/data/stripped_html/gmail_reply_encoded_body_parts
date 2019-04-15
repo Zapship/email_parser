@@ -1,0 +1,128 @@
+Delivered-To: amit@intrologic.com
+Received: by 2002:a5d:44d0:0:0:0:0:0 with SMTP id z16csp42599wrr;
+        Fri, 12 Apr 2019 15:29:12 -0700 (PDT)
+X-Received: by 2002:ab0:2858:: with SMTP id c24mr25906216uaq.4.1555108152425;
+        Fri, 12 Apr 2019 15:29:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1555108152; cv=none;
+        d=google.com; s=arc-20160816;
+        b=k5ruaO1pCgqDZbmkKF3m6kBfY5tJhLjehPN4e+nc2WTzmTfgfw7Pplq/EFK/Vhb1Gt
+         WzfdBujroT9jz9eKxkFzrI3APkx3BFf+/CXO7PMX3PLBnYw5geibYzECkbFIgBUWeebO
+         OxeITJmDh3qa6CE8rclx9ZF28iP+T46gR25uc3g9mTp5GIF2VPN5u8ZULH0+mf5hYixE
+         K85TAfA6x2iAKjpE/Y/h5oaaqZvuIOuYo54lyKPKn1FN8xDf4KumLa6CnYA59RWCAfDl
+         tyEmNmmzq5sjUuRwVhyqpUWZaJaR+Ooi0lrb5s35U0SZf3TPO+vL3TLytqEFuuFFl+/q
+         l6ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=Gos8p28qh9pulS7I2FX/Z1K23At/9J/3iA4qVz1Ku3Q=;
+        b=yZpGlB513oMgmQSPoCsG4I6IpW2SkLGUPI1+CR23F1YqllV4VN8dWn4hhfhFCIg6KE
+         2j0V4FK6nful4Pw6AluSbb8S2xMNPG2CUuZJxDFSWHSfgPRjj/DeQHb5T5zeZTgOUhyc
+         53AveWuZydYD+2kC4RYiADL+oNyHN6qoH1OjBa6uNRFveDUFIFKKmiZAVCh9yiCyPH7v
+         6bscedraPiE42kWnXktIHBUOP+8k4Gc3VspV1kQ9xeAPhX1DiGnXfWwBZSSeRHv3uHCw
+         l3+xSH1zT0arKKBeTmW+weiRZdzV6O35mYPH7mKbV02VevnggAhn27zOobz+Z/3BWvQv
+         R89Q==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=pcsknrT6;
+       spf=pass (google.com: domain of amit.koren@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=amit.koren@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Return-Path: <amit.koren@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id y26sor25921251vsm.43.2019.04.12.15.29.12
+        for <amit@intrologic.com>
+        (Google Transport Security);
+        Fri, 12 Apr 2019 15:29:12 -0700 (PDT)
+Received-SPF: pass (google.com: domain of amit.koren@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=pcsknrT6;
+       spf=pass (google.com: domain of amit.koren@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=amit.koren@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=Gos8p28qh9pulS7I2FX/Z1K23At/9J/3iA4qVz1Ku3Q=;
+        b=pcsknrT6gOXKkBtcHGIlGqtN9pUd2z9XrzOC00CEjRo+7Og0S3DiEWbzlNue1Kb6Vg
+         jeNT9fPloaCPm7H3U2IFLEIX1zzo57agNN6m91Ni224WfgiGc4rUs/e961jrYRBE5Z43
+         SLH/0x3DfuzMP+AqQRlI1+u/ySTp0Z1FbZuMPq12jsMa/wdG2ARKfoJAxElsv93szz8q
+         qG4FUkqPYvm0fa7aUUP0hyzExuUMZYbz/s0bn0GSoLKWByExbj5oG0X+1/ZRj1fVD8q2
+         Q9U/vA1KfY01F6RDltPj7beGOUTnd1iu3zO4/iuvTLZdzuRiG/T/zGCMfT1A+QnjIgUR
+         LEVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=Gos8p28qh9pulS7I2FX/Z1K23At/9J/3iA4qVz1Ku3Q=;
+        b=bWtA3zjaDoqanbfnLBi2g2qldiMF3FlZK5zfJIGneq2YmVX+RwPACMCeBp4pStUmuo
+         c0ZfyRKqPBGY8JWhuo97vuKnswq8cEvlPgB+KJjxseOrch3c3kgb9Egf6k4Y5tJbCeBw
+         p3oulzG/HRAqDKGFmk1ft1z1ccYeuMgL/CJuIJaqJsBekB1yZEwR7QWvBjpt1rEMyfek
+         RTuaVGisgvKANS0YzC9twEwW/Xg3dQF0N/TlFLZkOBxYbOSAALrbBYpvcYXsR62XiLLJ
+         yrfGKpF+oOzzO3jydmFnOFcoT4ud8W3w7GwN3/AlTnGQX9H5arP71LmqzGiOJ8YJDbpz
+         /GQg==
+X-Gm-Message-State: APjAAAV0yJ8J+p99dwbNJk4swGd7V+q/lgL4UiSQAzaWvrAMLkYebrAJ
+	r6rZrKBYBUTwMLDD0vNChPv1QzTbUxmoJaBnQuYlYxXs
+X-Google-Smtp-Source: APXvYqwellN+mlv8QLNq0tY3Y8V/E17rML59ftPH++MWksva7t8b1pwb+Fiwx3A1Mh04+wBeCH1R7qaAcMOOWgGS800=
+X-Received: by 2002:a67:7bd5:: with SMTP id w204mr34067233vsc.122.1555108151801;
+ Fri, 12 Apr 2019 15:29:11 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAB-+=pfUrSh+RpdBbLMXn-s0+BPsKK4Rque04aXnK6m50AeDGQ@mail.gmail.com>
+In-Reply-To: <CAB-+=pfUrSh+RpdBbLMXn-s0+BPsKK4Rque04aXnK6m50AeDGQ@mail.gmail.com>
+From: Amit Koren <amit.koren@gmail.com>
+Date: Fri, 12 Apr 2019 15:29:00 -0700
+Message-ID: <CAATeMmA-jY-PSkfLf4mhq8DiFHjOPAvMcg0qDGn9TH3ZUNfPZQ@mail.gmail.com>
+Subject: Re: Testing
+To: Amit Koren <amit@intrologic.com>
+Content-Type: multipart/alternative; boundary="000000000000f9be5905865cd4eb"
+
+--000000000000f9be5905865cd4eb
+Content-Type: text/plain; charset="UTF-8"
+
+This is a reply from the Gmail web client
+
+Amit Koren
+IntroLogic
+
+
+On Fri, Apr 12, 2019 at 3:27 PM Amit Koren <amit@intrologic.com> wrote:
+
+> This is a test
+> _____________________________
+> Amit Koren | IntroLogic
+> 617-320-4073
+> www.intrologic.com
+> Menlo Park
+>
+
+--000000000000f9be5905865cd4eb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">This is a reply from the Gmail web client<div><br clear=3D=
+"all"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gma=
+il_signature"><div dir=3D"ltr">Amit Koren<div>IntroLogic</div></div></div><=
+/div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Fri, Apr 12, 2019 at 3:27 PM Amit Koren &lt;<a href=3D"m=
+ailto:amit@intrologic.com">amit@intrologic.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">This is a te=
+st<br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail-m_4498003148463301=
+481gmail_signature"><div dir=3D"ltr"><div style=3D"font-family:Calibri,sans=
+-serif;font-size:14px"><span style=3D"color:rgb(0,0,0);font-family:Verdana,=
+Arial,Helvetica,sans-serif;font-size:11px">_________________________</span>=
+<span style=3D"color:rgb(0,0,0);font-family:Verdana,Arial,Helvetica,sans-se=
+rif;font-size:11px">____</span><br></div><div style=3D"font-family:Calibri,=
+sans-serif;font-size:14px"><span style=3D"font-weight:bold;font-family:Verd=
+ana,Arial,Helvetica,sans-serif;font-size:11px;color:rgb(103,103,112)">Amit =
+Koren |</span><span style=3D"font-weight:bold;color:rgb(0,0,0);font-family:=
+Verdana,Arial,Helvetica,sans-serif;font-size:11px">=C2=A0</span><span style=
+=3D"font-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-si=
+ze:11px"><font color=3D"#0000ff">IntroLogic</font></span><span style=3D"fon=
+t-weight:bold;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px=
+;color:rgb(51,197,103)">=C2=A0</span></div><div style=3D"font-size:12.8px;f=
+ont-family:Calibri,sans-serif"><span style=3D"color:rgb(103,103,112);font-s=
+ize:small">617-320-4073</span><br></div><div style=3D"font-size:12.8px"><fo=
+nt face=3D"Calibri, sans-serif"><a href=3D"http://www.intrologic.com/" targ=
+et=3D"_blank">www.intrologic.com</a></font></div><div style=3D"font-size:12=
+.8px"><span style=3D"color:rgb(103,103,112);font-family:Calibri,sans-serif;=
+font-size:small">Menlo Park</span></div></div></div></div></div>
+</blockquote></div>
+
+--000000000000f9be5905865cd4eb--

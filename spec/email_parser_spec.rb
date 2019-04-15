@@ -211,16 +211,25 @@ describe EmailParser do
   end
 
   describe 'stripped_html' do
-    it 'correctly decodes and strips the body of gmail messages' do
-      message = get_message('body_html/gmail_encoded_body_parts')
+    it 'correctly strips the body of gmail messages' do
+      message = get_message('stripped_html/gmail_reply_encoded_body_parts')
       stripped_html = EmailParser.parse(message)[:stripped_html]
-      expect(stripped_html).to eq("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<div dir=\"ltr\">Awesome, thank you so much! <br><div><br></div>\n<div>Was able to install and get in. thx - will give it a whirl.</div>\n</div>\n<br>\r\n</body></html>\n")
+      expect(Nokogiri::HTML.parse(stripped_html).xpath('/html/body').inner_html.strip).
+        to eq("<div dir=\"ltr\">This is a reply from the Gmail web client\n</div>")
     end
 
-    it 'correctly decodes and strips the signature of gmail messages' do
-      message = get_message('body_html/gmail_encoded_with_signature')
+    it 'correctly strips the body of iPhone client messages' do
+      message = get_message('stripped_html/iphone_reply_encoded_body_parts')
       stripped_html = EmailParser.parse(message)[:stripped_html]
-      expect(stripped_html).to eq("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<div dir=\"ltr\">Bhupesh -- Thanks for the intro to Amit. <div><br></div>\n<div>Amit -- Thanks for sending the link to get connected to Charles. I really appreciate it.</div>\n<div><br></div>\n<div>Best,<br>Sandeep<br clear=\"all\"><div></div>\n<br>\n</div>\n</div>\n<br>\r\n</body></html>\n")
+      expect(Nokogiri::HTML.parse(stripped_html).xpath('/html/body').inner_html.strip).
+        to eq("Reply from the iPhone mail app")
+    end
+
+    it 'correctly strips the body of office365 client messages' do
+      message = get_message('stripped_html/office365_reply_encoded_body_parts')
+      stripped_html = EmailParser.parse(message)[:stripped_html]
+      expect(Nokogiri::HTML.parse(stripped_html).xpath('/html/body').inner_html.strip).
+        to eq("<div style=\"font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nThis is a reply from an Office 365 client</div>")
     end
   end
 
