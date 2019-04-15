@@ -326,15 +326,15 @@ module EmailParser
       doc = Nokogiri::HTML(body)
 
       # remove quoted content
-      remove_element_onwards(doc.xpath("//div[@class='gmail_quote']").first) # gmail clients
+      remove_element_onwards(doc.xpath("//div[@class='gmail_quote']").first) # gmail/superhuman
       remove_element_onwards(doc.xpath("//div[@id='appendonsend']").first) # office365 clients
       remove_element_onwards(doc.xpath("//blockquote").first) ## apple clients
 
       # remove "On Apr 12, 2019, at 12:42 PM, Amit Koren <amit@intrologic.com> wrote:"
-      doc.xpath('//div').find { |node| /on.*wrote:$/i.match(node.text) }&.remove
+      doc.xpath('//div').find { |node| ReplyPatterns::REPLY_WROTE_RE.match(node.text) }&.remove
 
       # remove signature
-      remove_element_onwards(doc.xpath("//div[@class='gmail_signature']").first) # gmail clients
+      remove_element_onwards(doc.xpath("//div[@class='gmail_signature']").first) # gmail/superhuman
       remove_element_onwards(doc.xpath("//div[@id='AppleMailSignature']").first) # ios mail app
       remove_element_onwards(doc.xpath("//div[@id='Signature']").first) # office365 clients
 
