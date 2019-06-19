@@ -322,7 +322,6 @@ module EmailParser
 
     def self.strip_html(body, headers)
       return nil if body.nil?
-
       doc = Nokogiri::HTML(body)
 
       # remove quoted content
@@ -331,24 +330,26 @@ module EmailParser
       remove_element_onwards(doc.xpath("//blockquote").first) ## apple clients
 
       # remove "On Apr 12, 2019, at 12:42 PM, Amit Koren <amit@intrologic.com> wrote:"
-      doc.xpath('//div').find { |node| ReplyPatterns::REPLY_WROTE_RE.match(node.text) }&.remove
+      doc.xpath('//div').find do |node|
+        ReplyPatterns::REPLY_WROTE_RE.match?(node.text.strip)
+      end&.remove
 
       # remove signature
       remove_element_onwards(doc.xpath("//div[@class='gmail_signature']").first) # gmail/superhuman
       remove_element_onwards(doc.xpath("//div[@id='AppleMailSignature']").first) # ios mail app
       remove_element_onwards(doc.xpath("//div[@id='Signature']").first) # office365 clients
 
+      # remove "Sent from ..."
+      doc.xpath('//div').find do |node|
+        SentPatterns::SENT_FROM_RE.match?(node.text.strip)
+      end&.remove
+
       # remove HRs
       doc.xpath('//hr').each(&:remove) # office 365 clients
 
       # remove trailing whitespace
-      last_text_element = doc.xpath('//*[normalize-space(text())]').last
-      unless last_text_element.nil?
-        last_text_element.children.reverse.each do |child|
-          break unless child.text.strip.empty?
-          child.remove if %w(p br div).include?(child.name)
-        end
-        remove_element_onwards(last_text_element.next_sibling)
+      doc.xpath('//*[not(normalize-space())]').each do |node|
+        node.remove if %w(p br div).include?(node.name)
       end
 
       doc.to_html
