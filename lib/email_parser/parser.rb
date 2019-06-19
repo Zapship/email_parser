@@ -322,6 +322,7 @@ module EmailParser
 
     def self.strip_html(body, headers)
       return nil if body.nil?
+
       doc = Nokogiri::HTML(body)
 
       # remove quoted content
