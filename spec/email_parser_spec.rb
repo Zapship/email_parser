@@ -231,6 +231,13 @@ describe EmailParser do
       expect(Nokogiri::HTML.parse(stripped_html).xpath('/html/body').inner_html.strip).
         to eq("<div style=\"font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);\">\r\nThis is a reply from an Office 365 client</div>")
     end
+
+    it 'correctly strips the body of generic client messages' do
+      message = get_message('stripped_html/generic_reply_encoded_body_parts')
+      stripped_html = EmailParser.parse(message)[:stripped_html]
+      expect(Nokogiri::HTML.parse(stripped_html).xpath('/html/body').inner_html.strip).
+        to eq("<div dir=\"ltr\">\r\n  <p>This is a reply from a generic client</p>\r\n</div>")
+    end
   end
 
   describe 'attachment' do
