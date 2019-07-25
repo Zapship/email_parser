@@ -394,7 +394,6 @@ module EmailParser
 
       stripped_subject
     end
-    private_class_method(:strip_subject)
 
     def self.remove_element_onwards(element)
       return if element.nil?
